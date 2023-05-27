@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/PogLang.dir/main.cpp.o -o PogLang  libtest.a 
