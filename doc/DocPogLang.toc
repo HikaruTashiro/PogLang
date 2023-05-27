@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {1}Introdução}{3}{section.1}%
+\contentsline {section}{\numberline {2}Variáveis e Operadores}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Declarações e Tipos}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Operador: Atribuição}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Operadores Aritméticos}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Operadores Relacionais}{5}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Operadores Lógicos}{6}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Precedência de Operadores}{6}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Literais}{7}{section.3}%
+\contentsline {section}{\numberline {4}Instruções de Repetição}{8}{section.4}%
+\contentsline {section}{\numberline {5}Instrucoes de Controle}{10}{section.5}%
+\contentsline {section}{\numberline {6}Arrays}{13}{section.6}%
+\contentsline {section}{\numberline {7}String}{14}{section.7}%
+\contentsline {section}{\numberline {8}Funções}{15}{section.8}%
+\contentsline {section}{\numberline {9}Escopo de Variáveis}{16}{section.9}%
+\contentsline {section}{\numberline {10}Referências}{17}{section.10}%
