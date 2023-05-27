@@ -1,4 +1,0 @@
-/home/titico03/Documents/PogLang/CMakeFiles/test.dir
-/home/titico03/Documents/PogLang/CMakeFiles/PogLang.dir
-/home/titico03/Documents/PogLang/CMakeFiles/edit_cache.dir
-/home/titico03/Documents/PogLang/CMakeFiles/rebuild_cache.dir
