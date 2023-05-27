@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+PogLang
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
