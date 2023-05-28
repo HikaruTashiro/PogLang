@@ -1,7 +1,7 @@
 #include <iostream>
-#include "./include/test.hpp"
+#include "./include/gamer.hpp"
 
 int main() {
-    auto t = new test();
+    auto t = new gamer();
     t->show_gamer();
 }

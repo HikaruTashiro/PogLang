@@ -1,0 +1,33 @@
+Start testing: May 27 22:02 -03
+----------------------------------------------------------
+1/2 Testing: gamer_testtwo
+1/2 Test: gamer_testtwo
+Command: "/home/titico03/Documents/PogLang/gamer_testtwo"
+Directory: /home/titico03/Documents/PogLang
+"gamer_testtwo" start time: May 27 22:02 -03
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"gamer_testtwo" end time: May 27 22:02 -03
+"gamer_testtwo" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: gamer_test
+2/2 Test: gamer_test
+Command: "/home/titico03/Documents/PogLang/gamer_test"
+Directory: /home/titico03/Documents/PogLang
+"gamer_test" start time: May 27 22:02 -03
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"gamer_test" end time: May 27 22:02 -03
+"gamer_test" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 27 22:02 -03
