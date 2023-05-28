@@ -36,3 +36,10 @@ PogLang
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
+
+doc/DocPogLang.aux
+doc/DocPogLang.fdb_latexmk
+doc/DocPogLang.fls
+doc/DocPogLang.log
+doc/DocPogLang.synctex.gz
+doc/DocPogLang.toc
