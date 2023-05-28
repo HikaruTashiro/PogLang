@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/titico03/Documents/PogLang
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -117,17 +127,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test
+# Target rules for targets named gamer
 
 # Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
-.PHONY : test
+gamer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gamer
+.PHONY : gamer
 
 # fast build rule for target.
-test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
+gamer/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer.dir/build.make CMakeFiles/gamer.dir/build
+.PHONY : gamer/fast
 
 #=============================================================================
 # Target rules for targets named PogLang
@@ -141,6 +151,32 @@ PogLang: cmake_check_build_system
 PogLang/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PogLang.dir/build.make CMakeFiles/PogLang.dir/build
 .PHONY : PogLang/fast
+
+#=============================================================================
+# Target rules for targets named gamer_testtwo
+
+# Build rule for target.
+gamer_testtwo: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gamer_testtwo
+.PHONY : gamer_testtwo
+
+# fast build rule for target.
+gamer_testtwo/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer_testtwo.dir/build.make CMakeFiles/gamer_testtwo.dir/build
+.PHONY : gamer_testtwo/fast
+
+#=============================================================================
+# Target rules for targets named gamer_test
+
+# Build rule for target.
+gamer_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gamer_test
+.PHONY : gamer_test
+
+# fast build rule for target.
+gamer_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer_test.dir/build.make CMakeFiles/gamer_test.dir/build
+.PHONY : gamer_test/fast
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -166,29 +202,77 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PogLang.dir/build.make CMakeFiles/PogLang.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/teste/test.o: src/teste/test.cpp.o
-.PHONY : src/teste/test.o
+src/gamer/gamer.o: src/gamer/gamer.cpp.o
+.PHONY : src/gamer/gamer.o
 
 # target to build an object file
-src/teste/test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/teste/test.cpp.o
-.PHONY : src/teste/test.cpp.o
+src/gamer/gamer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer.dir/build.make CMakeFiles/gamer.dir/src/gamer/gamer.cpp.o
+.PHONY : src/gamer/gamer.cpp.o
 
-src/teste/test.i: src/teste/test.cpp.i
-.PHONY : src/teste/test.i
+src/gamer/gamer.i: src/gamer/gamer.cpp.i
+.PHONY : src/gamer/gamer.i
 
 # target to preprocess a source file
-src/teste/test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/teste/test.cpp.i
-.PHONY : src/teste/test.cpp.i
+src/gamer/gamer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer.dir/build.make CMakeFiles/gamer.dir/src/gamer/gamer.cpp.i
+.PHONY : src/gamer/gamer.cpp.i
 
-src/teste/test.s: src/teste/test.cpp.s
-.PHONY : src/teste/test.s
+src/gamer/gamer.s: src/gamer/gamer.cpp.s
+.PHONY : src/gamer/gamer.s
 
 # target to generate assembly for a file
-src/teste/test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/teste/test.cpp.s
-.PHONY : src/teste/test.cpp.s
+src/gamer/gamer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer.dir/build.make CMakeFiles/gamer.dir/src/gamer/gamer.cpp.s
+.PHONY : src/gamer/gamer.cpp.s
+
+test/gamer/gamer_test.o: test/gamer/gamer_test.cpp.o
+.PHONY : test/gamer/gamer_test.o
+
+# target to build an object file
+test/gamer/gamer_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer_test.dir/build.make CMakeFiles/gamer_test.dir/test/gamer/gamer_test.cpp.o
+.PHONY : test/gamer/gamer_test.cpp.o
+
+test/gamer/gamer_test.i: test/gamer/gamer_test.cpp.i
+.PHONY : test/gamer/gamer_test.i
+
+# target to preprocess a source file
+test/gamer/gamer_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer_test.dir/build.make CMakeFiles/gamer_test.dir/test/gamer/gamer_test.cpp.i
+.PHONY : test/gamer/gamer_test.cpp.i
+
+test/gamer/gamer_test.s: test/gamer/gamer_test.cpp.s
+.PHONY : test/gamer/gamer_test.s
+
+# target to generate assembly for a file
+test/gamer/gamer_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer_test.dir/build.make CMakeFiles/gamer_test.dir/test/gamer/gamer_test.cpp.s
+.PHONY : test/gamer/gamer_test.cpp.s
+
+test/gamertwo/gamer_testtwo.o: test/gamertwo/gamer_testtwo.cpp.o
+.PHONY : test/gamertwo/gamer_testtwo.o
+
+# target to build an object file
+test/gamertwo/gamer_testtwo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer_testtwo.dir/build.make CMakeFiles/gamer_testtwo.dir/test/gamertwo/gamer_testtwo.cpp.o
+.PHONY : test/gamertwo/gamer_testtwo.cpp.o
+
+test/gamertwo/gamer_testtwo.i: test/gamertwo/gamer_testtwo.cpp.i
+.PHONY : test/gamertwo/gamer_testtwo.i
+
+# target to preprocess a source file
+test/gamertwo/gamer_testtwo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer_testtwo.dir/build.make CMakeFiles/gamer_testtwo.dir/test/gamertwo/gamer_testtwo.cpp.i
+.PHONY : test/gamertwo/gamer_testtwo.cpp.i
+
+test/gamertwo/gamer_testtwo.s: test/gamertwo/gamer_testtwo.cpp.s
+.PHONY : test/gamertwo/gamer_testtwo.s
+
+# target to generate assembly for a file
+test/gamertwo/gamer_testtwo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamer_testtwo.dir/build.make CMakeFiles/gamer_testtwo.dir/test/gamertwo/gamer_testtwo.cpp.s
+.PHONY : test/gamertwo/gamer_testtwo.cpp.s
 
 # Help Target
 help:
@@ -198,14 +282,23 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... PogLang"
 	@echo "... test"
+	@echo "... PogLang"
+	@echo "... gamer"
+	@echo "... gamer_test"
+	@echo "... gamer_testtwo"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/teste/test.o"
-	@echo "... src/teste/test.i"
-	@echo "... src/teste/test.s"
+	@echo "... src/gamer/gamer.o"
+	@echo "... src/gamer/gamer.i"
+	@echo "... src/gamer/gamer.s"
+	@echo "... test/gamer/gamer_test.o"
+	@echo "... test/gamer/gamer_test.i"
+	@echo "... test/gamer/gamer_test.s"
+	@echo "... test/gamertwo/gamer_testtwo.o"
+	@echo "... test/gamertwo/gamer_testtwo.i"
+	@echo "... test/gamertwo/gamer_testtwo.s"
 .PHONY : help
 
 
