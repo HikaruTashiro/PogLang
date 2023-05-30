@@ -3,7 +3,6 @@
 #include <list>
 #include <string>
 #include <utility>
-#include <iostream>
 #include "../include/lexer.hpp"
 #include "../include/utils.hpp"
 
@@ -11,15 +10,15 @@ lexer::lexer(std::string file_name)
 {
     stream.open(file_name);
     assert(stream.is_open());
-    words = { {"+", new token(KEYWORD_IF,"+")},
-              {"-", new token(KEYWORD_IN,"+")},
-              {"*", new token(KEYWORD_FOR,"+")},
-              {"/", new token(KEYWORD_LET,"+")},
-              {"%", new token(KEYWORD_ELSE,"+")},
-              {"", new token(KEYWORD_ARROW,"+")},
-              {"<=", new token(KEYWORD_PRINT,"+")},
-              {"<", new token(KEYWORD_DOTDOT,"+")},
-              {">=", new token(KEYWORD_DO,"+")}};
+    words = { {"if", new token(KEYWORD_IF,"if")},
+              {"in", new token(KEYWORD_IN,"in")},
+              {"for", new token(KEYWORD_FOR,"for")},
+              {"let", new token(KEYWORD_LET,"let")},
+              {"else", new token(KEYWORD_ELSE,"else")},
+              {"->", new token(KEYWORD_ARROW,"->")},
+              {"print", new token(KEYWORD_PRINT,"print")},
+              {"..", new token(KEYWORD_DOTDOT,"..")},
+              {"do", new token(KEYWORD_DO,"do")}};
 }
 
 std::list<token*> lexer::tokenize()
@@ -29,7 +28,6 @@ std::list<token*> lexer::tokenize()
     while (!stream.eof())
     {
         std::getline(stream, line); 
-        std::cout << line << '\n';
         auto start_iter = line.begin();
         while (start_iter != line.end())
         {
@@ -37,6 +35,7 @@ std::list<token*> lexer::tokenize()
             list.push_back(new_token);
         }
     }
+    list.push_back(new token(END_OF_FILE, ""));
     
     return list;
 }
@@ -45,7 +44,6 @@ token* lexer::get_token(std::string::iterator& iter)
 {
     while (true)
     {
-        std::cout << *iter << '\n';
         /* MISSING ! LOGIC OPERATOR*/
         switch (*iter)
         {
