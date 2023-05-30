@@ -2,6 +2,6 @@ use PogLang::lex::lexer::Lexer;
 
 fn main() {
     let mut pog = Lexer::new();
-    pog.tokenizer("ola( ) ");
+    pog.tokenizer("ola( ");
     println!("{:?}", pog);
 }

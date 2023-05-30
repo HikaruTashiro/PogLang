@@ -36,9 +36,13 @@ impl Token {
         let mut veri = true;
         for ch in word.chars() {
             if ch == *sep {
-                print!("{}", sep);
                 veri = Token::into_token(buffer.as_str(), tokens);
-                veri = Token::into_token(sep.to_string().as_str(), tokens);
+                if veri {
+                    veri = Token::into_token(sep.to_string().as_str(), tokens);
+                } else {
+                    veri = false;
+                    break;
+                }
                 buffer.clear();
             } else {
                 buffer.push(ch);

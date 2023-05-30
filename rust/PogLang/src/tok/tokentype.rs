@@ -1,4 +1,4 @@
-use regex::{Regex, RegexSet};
+use regex::RegexSet;
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum TokenType {
@@ -31,12 +31,32 @@ impl TokenType {
         }
     }
     pub fn is_identifier(word: &str) -> Option<TokenType> {
-        let reg_identifier = Regex::new(r"([a-z]|_)([a-z]|_|\d)*").unwrap();
+        let mut chars: Vec<char> = word.chars().collect();
+        let mut i = 1;
+        let len = chars.len();
+        let mut veri = true;
 
-        if reg_identifier.is_match(word) {
-            return Some(TokenType::Identifier);
-        } else {
-            return None;
+        match chars.get(1).unwrap().to_owned() {
+            'a'..='z' | 'A'..='Z' => {
+                chars.remove(i);
+                while !chars.is_empty() && veri {
+                    match chars.get(i).unwrap().to_owned() {
+                        'a'..='z' | 'A'..='Z' | '0'..='9' => {
+                            veri = true;
+                        }
+                        _ => {
+                            veri = false;
+                        }
+                    }
+                    i += 1;
+                }
+                if i == len {
+                    Some(TokenType::Identifier)
+                } else {
+                    None
+                }
+            }
+            _ => None,
         }
     }
 
