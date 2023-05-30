@@ -31,26 +31,29 @@ impl TokenType {
         }
     }
     pub fn is_identifier(word: &str) -> Option<TokenType> {
-        let mut chars: Vec<char> = word.chars().collect();
+        let chars: Vec<char> = word.chars().collect();
         let mut i = 1;
         let len = chars.len();
         let mut veri = true;
 
-        match chars.get(1).unwrap().to_owned() {
+        match chars.get(i).unwrap().to_owned() {
             'a'..='z' | 'A'..='Z' => {
-                chars.remove(i);
-                while !chars.is_empty() && veri {
-                    match chars.get(i).unwrap().to_owned() {
-                        'a'..='z' | 'A'..='Z' | '0'..='9' => {
-                            veri = true;
-                        }
-                        _ => {
-                            veri = false;
+                while i <= len && veri {
+                    i += 1;
+                    if let Some(ch) = chars.get(i) {
+                        match ch {
+                            'a'..='z' | 'A'..='Z' | '0'..='9' => {
+                                veri = true;
+                            }
+                            _ => {
+                                veri = false;
+                            }
                         }
                     }
-                    i += 1;
                 }
-                if i == len {
+
+                println!("i = {} e len {}", i, len);
+                if i == len  {
                     Some(TokenType::Identifier)
                 } else {
                     None

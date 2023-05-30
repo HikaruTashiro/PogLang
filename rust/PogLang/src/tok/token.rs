@@ -18,11 +18,11 @@ impl Token {
             tokens.push_back(Token::new(type_token, word.to_string()));
         } else if let Some(type_token) = TokenType::is_key_word(word) {
             tokens.push_back(Token::new(type_token, word.to_string()));
-        } else if let Some(type_token) = TokenType::is_identifier(word) {
-            tokens.push_back(Token::new(type_token, word.to_string()));
         } else if let Some(type_token) = TokenType::is_left_bracket(word) {
             tokens.push_back(Token::new(type_token, word.to_string()));
         } else if let Some(type_token) = TokenType::is_right_bracket(word) {
+            tokens.push_back(Token::new(type_token, word.to_string()));
+        } else if let Some(type_token) = TokenType::is_identifier(word) {
             tokens.push_back(Token::new(type_token, word.to_string()));
         } else {
             veri = false;
