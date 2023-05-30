@@ -4,10 +4,12 @@ project(PogLang)
 
 add_library(lexer ./src/lexer.cpp)
 add_library(token ./src/token.cpp)
+add_library(utils ./src/utils.cpp)
 
 add_executable(PogLang pog.cpp)
 
-target_link_libraries(PogLang PRIVATE token lexer)
+target_link_libraries(lexer token utils)
+target_link_libraries(PogLang lexer token)
 
 # enable testing functionality
 #enable_testing()

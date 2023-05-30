@@ -3,13 +3,23 @@
 #include <list>
 #include <string>
 #include <utility>
+#include <iostream>
 #include "../include/lexer.hpp"
 #include "../include/utils.hpp"
 
 lexer::lexer(std::string file_name)
 {
     stream.open(file_name);
-    assert(!stream.is_open());
+    assert(stream.is_open());
+    words = { {"+", new token(KEYWORD_IF,"+")},
+              {"-", new token(KEYWORD_IN,"+")},
+              {"*", new token(KEYWORD_FOR,"+")},
+              {"/", new token(KEYWORD_LET,"+")},
+              {"%", new token(KEYWORD_ELSE,"+")},
+              {"", new token(KEYWORD_ARROW,"+")},
+              {"<=", new token(KEYWORD_PRINT,"+")},
+              {"<", new token(KEYWORD_DOTDOT,"+")},
+              {">=", new token(KEYWORD_DO,"+")}};
 }
 
 std::list<token*> lexer::tokenize()
@@ -19,9 +29,13 @@ std::list<token*> lexer::tokenize()
     while (!stream.eof())
     {
         std::getline(stream, line); 
+        std::cout << line << '\n';
         auto start_iter = line.begin();
-        token* new_token = get_token(start_iter);
-        list.push_back(new_token);
+        while (start_iter != line.end())
+        {
+            token* new_token = get_token(start_iter);
+            list.push_back(new_token);
+        }
     }
     
     return list;
@@ -31,6 +45,7 @@ token* lexer::get_token(std::string::iterator& iter)
 {
     while (true)
     {
+        std::cout << *iter << '\n';
         /* MISSING ! LOGIC OPERATOR*/
         switch (*iter)
         {
@@ -152,28 +167,67 @@ token* lexer::get_token(std::string::iterator& iter)
          * */
         if(isdigit(*iter) || *iter == '.')
         {
-            std::string number;
-            number.reserve(16);
-            number += *iter;
-            bool isreal = *iter == '.';
-            iter++;
+            std::string number_literal;
+            number_literal.reserve(16);
+            number_literal += *iter;
+            bool isreal = false;
 
             uint length = 1;
-            while (isdigit(*iter) || (!isreal && *iter == '.'))
+            iter++;
+            while (isdigit(*iter))
             {
-                length++;            
-                isreal = isreal || (*iter == '.');
-                number += *iter;
+                length++;
+                number_literal += *iter;
                 iter++;
             }
 
+            if(*iter == '.' && *(iter + 1) != '.')
+            {
+                isreal = true;
+                while (isdigit(*iter))
+                {
+                    length++;
+                    number_literal += *iter;
+                    iter++;
+                }
+            }
+
+            //while (isdigit(*iter) || (!isreal && *iter == '.'))
+            //{
+            //    length++; 
+            //    isreal = isreal || (*iter == '.');
+            //    number_literal += *iter;
+            //    iter++;
+            //}
+
+            if(isreal)
+            {
+                if(*iter == 'f')
+                {
+                    length++;
+                    number_literal += *iter;
+                    iter++;
+                }
+                else if(*iter == 'l' && *(iter + 1) == 'f')
+                {
+                    length += 2;
+                    number_literal += *(iter++);
+                    number_literal += *(iter++);
+                }
+                else
+                    assert_lexical(false, "Did not found literal specifier for float or double");
+            }
             col_count += length;
 
             if(isreal)
-                return new token(FLOAT_LITERAL, number);
+                return new token(FLOAT_LITERAL, number_literal);
             else
-                return new token(INT_LITERAL, number);
+                return new token(INT_LITERAL, number_literal);
         }
+
+        /*
+         * Literal Strings
+         * */
 
         if(*iter == '"')
         {
@@ -201,7 +255,13 @@ token* lexer::get_token(std::string::iterator& iter)
 
 
         // assert wrong character
-        assert_lexical(false, "Unexpected Character");
+        std::string s("Unexpected Character: ");
+        s += *iter;
+        s += "  line: ";
+        s += std::to_string(line_count);
+        s += " col: ";
+        s += std::to_string(col_count);
+        assert_lexical(false, s.c_str());
     }
 }
 

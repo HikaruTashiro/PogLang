@@ -6,8 +6,8 @@ void __assert_lexical_fail(const char *assertion, const char *file, unsigned int
 {
     std::fprintf(stderr, 
             "%s:%u: a lexical error was detected in function %s\n"
-            "%s\n"
-            "\t\t%s\n", 
+            "The following predicate was wrong: %s\n"
+            "\t%s\n", 
             file, line, function, assertion, message);
     std::abort();
 }

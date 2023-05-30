@@ -1,6 +1,7 @@
 #include <sstream>
 #include <sys/types.h>
 #include <utility>
+#pragma once
 
 typedef enum : uint {
     PLUS_OP,            /* '+' */
@@ -22,6 +23,7 @@ typedef enum : uint {
     KEYWORD_FOR,
     KEYWORD_WHILE,
     KEYWORD_IN,
+    KEYWORD_DO,
     KEYWORD_DOTDOT,
     KEYWORD_ARROW,
     KEYWORD_LET,
