@@ -4,17 +4,18 @@
 #pragma once
 
 typedef enum : uint {
-    PLUS_OP,            /* '+' */
-    MINUS_OP,           /* '-' */
-    MUL_OP,             /* '*' */
-    DIV_OP,             /* '/' */
-    MODULO,             /* '%' */
-    LOGIC_OP,           /* '/' */
+    PLUS_OP,            
+    MINUS_OP,           
+    MUL_OP,             
+    DIV_OP,             
+    MODULO,             
+    LOGIC_OP,           
     LESS_OR_EQUAL,
     LESS,
     GREATER_OR_EQUAL,
     GREATER,
-    RELAT_OP,
+    DIFFERENT,
+    EQUAL,
     ATRIBUTION,
     IDENTIFIER,
     KEYWORD_PRINT,
@@ -51,6 +52,7 @@ class token
         const symbol _tag;
         const std::string _lexeme;
     public:
+        ~token() = default;
         explicit token(symbol tag, std::string lexeme);
         inline symbol get_symbol(){return _tag;}
         inline const std::string& get_atribute(){return _lexeme;}

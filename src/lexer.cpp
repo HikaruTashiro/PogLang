@@ -1,6 +1,7 @@
 #include <cassert>
 #include <cctype>
 #include <list>
+#include <memory>
 #include <string>
 #include <utility>
 #include "../include/lexer.hpp"
@@ -10,20 +11,39 @@ lexer::lexer(std::string file_name)
 {
     stream.open(file_name);
     assert(stream.is_open());
-    words = { {"if", new token(KEYWORD_IF,"if")},
-              {"in", new token(KEYWORD_IN,"in")},
-              {"for", new token(KEYWORD_FOR,"for")},
-              {"let", new token(KEYWORD_LET,"let")},
-              {"else", new token(KEYWORD_ELSE,"else")},
-              {"->", new token(KEYWORD_ARROW,"->")},
-              {"print", new token(KEYWORD_PRINT,"print")},
-              {"..", new token(KEYWORD_DOTDOT,"..")},
-              {"do", new token(KEYWORD_DO,"do")}};
+    words = { {"if", token_ptr(new token(KEYWORD_IF,"if"))},
+              {"in", token_ptr(new token(KEYWORD_IN,"in"))},
+              {"for", token_ptr(new token(KEYWORD_FOR,"for"))},
+              {"let", token_ptr(new token(KEYWORD_LET,"let"))},
+              {"else", token_ptr(new token(KEYWORD_ELSE,"else"))},
+              {"->", token_ptr(new token(KEYWORD_ARROW,"->"))},
+              {"print", token_ptr(new token(KEYWORD_PRINT,"print"))},
+              {"..", token_ptr(new token(KEYWORD_DOTDOT,".."))},
+              {"do", token_ptr(new token(KEYWORD_DO,"do"))},
+              {"=", token_ptr(new token(ATRIBUTION,"="))},
+              {"*", token_ptr(new token(MUL_OP,"*"))},
+              {"/", token_ptr(new token(DIV_OP,"/"))},
+              {"%", token_ptr(new token(MODULO,"%"))},
+              {"+", token_ptr(new token(PLUS_OP,"+"))},
+              {"-", token_ptr(new token(MINUS_OP,"-"))},
+              {";", token_ptr(new token(SEMICOLON,";"))},
+              {"!=", token_ptr(new token(DIFFERENT,"!="))},
+              {"==", token_ptr(new token(EQUAL,"=="))},
+              {"<=", token_ptr(new token(LESS_OR_EQUAL,"<="))},
+              {"<", token_ptr(new token(LESS,"<"))},
+              {">=", token_ptr(new token(GREATER_OR_EQUAL,">="))},
+              {">", token_ptr(new token(GREATER,">"))},
+              {"(", token_ptr(new token(LEFT_PAREN,"("))},
+              {")", token_ptr(new token(RIGH_PAREN,")"))},
+              {"[", token_ptr(new token(LEFT_SQUARE,"["))},
+              {"]", token_ptr(new token(RIGHT_SQUARE,"]"))},
+              {"{", token_ptr(new token(LEFT_CURLY,"{"))},
+              {"}", token_ptr(new token(RIGHT_CURLY,"}"))}};
 }
 
-std::list<token*> lexer::tokenize()
+std::list<std::shared_ptr<token>> lexer::tokenize()
 {
-    std::list<token*> list;
+    std::list<std::shared_ptr<token>> list;
     std::string line;
     while (!stream.eof())
     {
@@ -31,18 +51,17 @@ std::list<token*> lexer::tokenize()
         auto start_iter = line.begin();
         while (start_iter != line.end())
         {
-            token* new_token = get_token(start_iter);
-            list.push_back(new_token);
+            list.push_back(get_token(start_iter));
         }
         col_count = 1;
         line_count++;
     }
-    list.push_back(new token(END_OF_FILE, ""));
+    list.push_back(std::shared_ptr<token>(new token(END_OF_FILE, "")));
     
     return list;
 }
 
-token* lexer::get_token(std::string::iterator& iter)
+token_ptr lexer::get_token(std::string::iterator& iter)
 {
     while (true)
     {
@@ -63,81 +82,87 @@ token* lexer::get_token(std::string::iterator& iter)
                  * */
             case '*':
                 col_count++; iter++;
-                return new token(MUL_OP, "*");
+                return words.find("*")->second;
             case '!':
-                if(*(iter + 1) != '=')
+                if(*(iter + 1) == '=')
                 {
                     iter += 2;
                     col_count += 2;
-                    return new token(RELAT_OP, "!="); //create enum for different
+                    return words.find("!=")->second;
                 }
                 break;
             case '=':
+                if(*(iter + 1) == '=')
+                {
+                    col_count++;
+                    iter++;
+                    return words.find("==")->second;
+                }
                 col_count++; iter++;
-                return new token(ATRIBUTION, "=");
+                return words.find("=")->second;
             case '(':
             	col_count++; iter++;
-            	return new token(LEFT_PAREN, "(");
+                return words.find("(")->second;
             case '-':
                 if(*(iter + 1) == '>')
                 {
                     iter += 2;
                     col_count += 2;                    
-                    return new token(KEYWORD_ARROW, "->");
+                    return words.find("->")->second;
                 }
                 col_count++; iter++;
-            	return new token(MINUS_OP, "-");
+                return words.find("-")->second;
             case '+':
                 col_count++; iter++;
-                return new token(PLUS_OP, "+");
+                return words.find("+")->second;
             case ')':
                 col_count++; iter++;
-                return new token(RIGH_PAREN, ")");
+                return words.find(")")->second;
             case ';':
                 col_count++; iter++;
-                return new token(SEMICOLON, ";");
+                return words.find(";")->second;
             case '<':
                 if (*(iter + 1) == '=')
                 {
                     iter += 2;
                     col_count += 2;
-                    return new token(LESS_OR_EQUAL, "<=");
+                    return words.find("<=")->second;
                 }
                 col_count++; iter++;
-                return new token(LESS, "<");
+                return words.find("<")->second;
             case '>':
                 if (*(iter + 1) == '=')
                 {
                     iter += 2; 
                     col_count += 2;
-                  return new token(GREATER_OR_EQUAL, ">=");
+                    return words.find(">=")->second;
                 }
                 col_count++; iter++;
-                return new token(GREATER, ">");
+                return words.find(">")->second;
             case '/':
                 col_count++; iter++;
-                return new token(DIV_OP, "/");
+                return words.find("/")->second;
             case '%':
                 col_count++; iter++;
-                return new token(MODULO, "%");
+                return words.find("%")->second;
             case '[':
                 col_count++; iter++;
-                return new token(LEFT_SQUARE, "[");
+                return words.find("[")->second;
             case ']':
                 col_count++; iter++;
-                return new token(RIGHT_SQUARE, "]");
+                return words.find("]")->second;
             case '{':
                 col_count++; iter++;
-                return new token(LEFT_CURLY, "{");
+                return words.find("{")->second;
             case '}':
                 col_count++; iter++;
-                return new token(RIGHT_CURLY, "}");
+                return words.find("}")->second;
             case '.':
                 if (*(iter + 1) == '.')
                 {
                     // Only if followed by a non number
                     col_count += 2; iter += 2;
-                    return new token(KEYWORD_DOTDOT, "..");
+                    return words.find("..")->second;
                 }
                 break;
         }    
@@ -163,9 +188,9 @@ token* lexer::get_token(std::string::iterator& iter)
             auto keysearch = words.find(lexeme);
             if(keysearch != words.end())
                 return keysearch->second;
-            auto new_token = new token(IDENTIFIER, lexeme);
-            words.insert(std::pair<std::string, token*>(lexeme, new_token));
-            return new_token;
+            auto new_token = token_ptr(new token(IDENTIFIER, lexeme));
+            words.insert(std::pair<std::string, token_ptr>(lexeme, new_token));
+            return token_ptr(new_token);
         }
 
         /*
@@ -226,9 +251,9 @@ token* lexer::get_token(std::string::iterator& iter)
             col_count += length;
 
             if(isreal)
-                return new token(FLOAT_LITERAL, number_literal);
+                return token_ptr(new token(FLOAT_LITERAL, number_literal));
             else
-                return new token(INT_LITERAL, number_literal);
+                return token_ptr(new token(INT_LITERAL, number_literal));
         }
 
         /*
@@ -256,7 +281,7 @@ token* lexer::get_token(std::string::iterator& iter)
               iter++;
             else
               assert_lexical(false, "Unreacheble, this should not print");
-            return new token(STRING_LITERAL, literal);
+            return token_ptr(new token(STRING_LITERAL, literal));
         }
 
 

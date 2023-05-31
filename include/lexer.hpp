@@ -1,5 +1,6 @@
 #include <array>
 #include <fstream>
+#include <memory>
 #include <ostream>
 #include <string>
 #include <list>
@@ -14,19 +15,21 @@
 //#define RELAT_REGEX "(<|>|<=|>=|==)"
 //#define LOGIC_REGEX "(&&|\\|\\||!)"
 
+typedef std::shared_ptr<token> token_ptr;
+
 class lexer
 {
     private:
         std::ifstream stream;
         std::string content;
 
-        std::unordered_map<std::string, token*> words; // used to diferentiate keywords from identifiers
+        std::unordered_map<std::string, token_ptr> words; // used to diferentiate keywords from identifiers
         uint line_count = 1u;
         uint col_count = 1u;
         char peek;
-        token* get_token(std::string::iterator& iter);
+        token_ptr get_token(std::string::iterator& iter);
 
     public:
         lexer(std::string file_name);
-        std::list<token*> tokenize();
+        std::list<token_ptr> tokenize();
 };
