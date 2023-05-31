@@ -2,19 +2,20 @@
 #include <list>
 #include <iostream>
 #include <string>
+#include <memory>
 #include "include/lexer.hpp"
 #include "include/token.hpp"
 
 int main()
 {
-    lexer lex("./test/SEXO.pog");
-    std::list<token*> result_list = lex.tokenize();
-    for(auto var : result_list)
-        std::cout << *var << ' ';
+    //lexer lex("./test/Based.pog");
+    //std::list<token*> result_list = lex.tokenize();
+    //for(auto var : result_list)
+    //    std::cout << *var << ' ';
 
-    //std::fstream pog("./test/SEXO.pog");
-    //std::string s;
-    //std::getline(pog, s);
-    //std::cout << s;
+    //std::list<std::unique_ptr<token>> pog;
+    //pog.push_back((std::unique_ptr<token>(new token(KEYWORD_FOR, "for"))));
+    //std::cout << pog.front().get()->get_atribute() << '\n';
+
     return 0;
 }

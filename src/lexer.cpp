@@ -34,6 +34,8 @@ std::list<token*> lexer::tokenize()
             token* new_token = get_token(start_iter);
             list.push_back(new_token);
         }
+        col_count = 1;
+        line_count++;
     }
     list.push_back(new token(END_OF_FILE, ""));
     
@@ -124,6 +126,12 @@ token* lexer::get_token(std::string::iterator& iter)
             case ']':
                 col_count++; iter++;
                 return new token(RIGHT_SQUARE, "]");
+            case '{':
+                col_count++; iter++;
+                return new token(LEFT_CURLY, "{");
+            case '}':
+                col_count++; iter++;
+                return new token(RIGHT_CURLY, "}");
             case '.':
                 if (*(iter + 1) == '.')
                 {

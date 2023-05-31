@@ -34,6 +34,8 @@ typedef enum : uint {
     STRING_LITERAL,
     LEFT_SQUARE,
     RIGHT_SQUARE,
+    LEFT_CURLY,
+    RIGHT_CURLY,
     LEFT_PAREN,
     RIGH_PAREN,
     LEFT_BRACK,
