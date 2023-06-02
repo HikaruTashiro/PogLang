@@ -20,10 +20,12 @@ lexer::lexer(std::string file_name)
               {"print", token_ptr(new token(KEYWORD_PRINT,"print"))},
               {"..", token_ptr(new token(KEYWORD_DOTDOT,".."))},
               {"do", token_ptr(new token(KEYWORD_DO,"do"))},
+              {"true", token_ptr(new token(TRUE_LITERAL,"true"))},
+              {"false", token_ptr(new token(FALSE_LITERAL,"false"))},
               {"=", token_ptr(new token(ATRIBUTION,"="))},
               {"*", token_ptr(new token(MUL_OP,"*"))},
               {"/", token_ptr(new token(DIV_OP,"/"))},
-              {"%", token_ptr(new token(MODULO,"%"))},
+              {"%", token_ptr(new token(MODULO,"%"))}, 
               {"+", token_ptr(new token(PLUS_OP,"+"))},
               {"-", token_ptr(new token(MINUS_OP,"-"))},
               {";", token_ptr(new token(SEMICOLON,";"))},
@@ -41,9 +43,9 @@ lexer::lexer(std::string file_name)
               {"}", token_ptr(new token(RIGHT_CURLY,"}"))}};
 }
 
-std::list<std::shared_ptr<token>> lexer::tokenize()
+std::list<token_ptr> lexer::tokenize()
 {
-    std::list<std::shared_ptr<token>> list;
+    std::list<token_ptr> list;
     std::string line;
     while (!stream.eof())
     {
@@ -56,7 +58,7 @@ std::list<std::shared_ptr<token>> lexer::tokenize()
         col_count = 1;
         line_count++;
     }
-    list.push_back(std::shared_ptr<token>(new token(END_OF_FILE, "")));
+    list.push_back(token_ptr(new token(END_OF_FILE, "")));
     
     return list;
 }

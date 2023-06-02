@@ -28,6 +28,8 @@ typedef enum : uint {
     KEYWORD_DOTDOT,
     KEYWORD_ARROW,
     KEYWORD_LET,
+    TRUE_LITERAL,
+    FALSE_LITERAL,
     CHAR_LITERAL,
     INT_LITERAL,
     BOOL_LITERAL,

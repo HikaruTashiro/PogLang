@@ -26,7 +26,6 @@ class lexer
         std::unordered_map<std::string, token_ptr> words; // used to diferentiate keywords from identifiers
         uint line_count = 1u;
         uint col_count = 1u;
-        char peek;
         token_ptr get_token(std::string::iterator& iter);
 
     public:
