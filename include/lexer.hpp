@@ -29,6 +29,7 @@ class lexer
         token_ptr get_token(std::string::iterator& iter);
 
     public:
+        lexer() = default;
         lexer(std::string file_name);
-        std::list<token_ptr> tokenize();
+        std::list<token_ptr> tokenize(); // used in debugging
 };

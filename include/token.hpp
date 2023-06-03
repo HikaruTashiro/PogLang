@@ -18,6 +18,7 @@ typedef enum : uint {
     EQUAL,
     ATRIBUTION,
     IDENTIFIER,
+    KEYWORD_FN,
     KEYWORD_PRINT,
     KEYWORD_IF,
     KEYWORD_ELSE,
