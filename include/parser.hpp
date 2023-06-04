@@ -1,4 +1,6 @@
 #include <iostream>
+#include <list>
+#include <memory>
 #include "lexer.hpp"
 #include "grammar/stmt.hpp"
 #include "grammar/constant.hpp"
@@ -8,6 +10,7 @@
 #include "grammar/if.hpp"
 #include "grammar/logical.hpp"
 #include "grammar/expr.hpp"
+#include "grammar/seq.hpp"
 #include "token.hpp"
 
 class parser
@@ -15,22 +18,24 @@ class parser
     private:
         lexer* _lex;
         token_ptr lookahead;
+        token_list tokens;
+        token_list::iterator current_tok;
 
-        void match(symbol t);
+        void match(symbol s);
         void move();
-        stmt assign();
-        stmt block();
-        expr bool_expr();
+        std::shared_ptr<stmt> assign();
+        std::shared_ptr<stmt> block();
+        std::shared_ptr<expr> bool_expr();
         void declarations();
-        expr equality();
-        expr expression();
-        expr factor();
-        expr join();
-        expr relation();
-        stmt statement();
-        stmt statements();
-        expr term();
-        expr unary();
+        std::shared_ptr<expr> equality();
+        std::shared_ptr<expr> expression();
+        std::shared_ptr<expr> factor();
+        std::shared_ptr<expr> join();
+        std::shared_ptr<expr> relation();
+        std::shared_ptr<stmt> statement();
+        std::shared_ptr<stmt> statements();
+        std::shared_ptr<expr> term();
+        std::shared_ptr<expr> unary();
 
     public:
         parser(lexer* lex);

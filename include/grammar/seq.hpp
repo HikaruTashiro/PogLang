@@ -1,0 +1,10 @@
+#include "stmt.hpp"
+#include <memory>
+
+class seq : public stmt
+{
+    std::shared_ptr<stmt> statement1;
+    std::shared_ptr<stmt> statement2;
+    public:
+        seq(std::shared_ptr<stmt>& s1, std::shared_ptr<stmt>& s2);
+};

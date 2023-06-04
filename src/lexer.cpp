@@ -52,9 +52,7 @@ std::list<token_ptr> lexer::tokenize()
         std::getline(stream, line); 
         auto start_iter = line.begin();
         while (start_iter != line.end())
-        {
             list.push_back(get_token(start_iter));
-        }
         col_count = 1;
         line_count++;
     }

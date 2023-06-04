@@ -1,5 +1,6 @@
 #include "node.hpp"
 #include "../token.hpp"
+#pragma once
 
 class expr : public node
 {

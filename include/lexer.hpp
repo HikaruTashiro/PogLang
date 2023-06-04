@@ -16,6 +16,7 @@
 //#define LOGIC_REGEX "(&&|\\|\\||!)"
 
 typedef std::shared_ptr<token> token_ptr;
+typedef std::list<token_ptr> token_list;
 
 class lexer
 {
