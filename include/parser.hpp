@@ -8,6 +8,7 @@
 #include "grammar/while.hpp"
 #include "grammar/else.hpp"
 #include "grammar/if.hpp"
+#include "grammar/id.hpp"
 #include "grammar/logical.hpp"
 #include "grammar/expr.hpp"
 #include "grammar/seq.hpp"

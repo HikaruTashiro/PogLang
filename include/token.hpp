@@ -9,7 +9,9 @@ typedef enum : uint {
     MUL_OP,             
     DIV_OP,             
     MODULO,             
-    LOGIC_OP,           
+    LOGIC_OR,           
+    LOGIC_AND,           
+    LOGIC_NOT,           
     LESS_OR_EQUAL,
     LESS,
     GREATER_OR_EQUAL,
@@ -55,8 +57,9 @@ class token
         const symbol _tag;
         const std::string _lexeme;
     public:
+        const uint line, col;
         ~token() = default;
-        explicit token(symbol tag, std::string lexeme);
+        explicit token(symbol tag, std::string lexeme, uint line, uint col);
         inline symbol get_symbol(){return _tag;}
         inline const std::string& get_atribute(){return _lexeme;}
         friend std::ostream& operator<<(std::ostream& stream, token& tok);

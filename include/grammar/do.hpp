@@ -9,5 +9,5 @@ class Do : public stmt
     std::shared_ptr<stmt> statement;
     public:
         Do();
-        void initialize(std::shared_ptr<expr> e,std::shared_ptr<stmt> st);
+        void initialize(std::shared_ptr<stmt> st,std::shared_ptr<expr> e);
 };

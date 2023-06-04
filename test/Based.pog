@@ -1,4 +1,4 @@
-void main()
+fn main()
 {
     int i;
     for i in 1..69
