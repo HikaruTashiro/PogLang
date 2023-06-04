@@ -5,5 +5,5 @@ class node
 {
     public:
         node() = default;
-        void emit(std::string s);
+        void emit(std::string s) {}
 };

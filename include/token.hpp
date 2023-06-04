@@ -20,6 +20,7 @@ typedef enum : uint {
     EQUAL,
     ATRIBUTION,
     IDENTIFIER,
+    KEYWORD_MAIN,
     KEYWORD_FN,
     KEYWORD_PRINT,
     KEYWORD_IF,
@@ -31,6 +32,7 @@ typedef enum : uint {
     KEYWORD_DOTDOT,
     KEYWORD_ARROW,
     KEYWORD_LET,
+    BASIC_TYPE,
     TRUE_LITERAL,
     FALSE_LITERAL,
     CHAR_LITERAL,
@@ -57,7 +59,7 @@ class token
         const symbol _tag;
         const std::string _lexeme;
     public:
-        const uint line, col;
+        const uint _line, _col;
         ~token() = default;
         explicit token(symbol tag, std::string lexeme, uint line, uint col);
         inline symbol get_symbol(){return _tag;}

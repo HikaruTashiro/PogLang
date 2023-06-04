@@ -8,10 +8,18 @@
 #include "grammar/while.hpp"
 #include "grammar/else.hpp"
 #include "grammar/if.hpp"
+#include "grammar/or.hpp"
+#include "grammar/and.hpp"
+#include "grammar/arithm.hpp"
 #include "grammar/id.hpp"
 #include "grammar/logical.hpp"
 #include "grammar/expr.hpp"
+#include "grammar/rel.hpp"
 #include "grammar/seq.hpp"
+#include "grammar/set.hpp"
+#include "grammar/not.hpp"
+#include "grammar/unary.hpp"
+#include "symbol.hpp"
 #include "token.hpp"
 
 class parser
@@ -21,12 +29,14 @@ class parser
         token_ptr lookahead;
         token_list tokens;
         token_list::iterator current_tok;
+        std::shared_ptr<symbol_table> scope = nullptr;
 
         void match(symbol s);
         void move();
         std::shared_ptr<stmt> assign();
         std::shared_ptr<stmt> block();
         std::shared_ptr<expr> bool_expr();
+        std::shared_ptr<token> type();
         void declarations();
         std::shared_ptr<expr> equality();
         std::shared_ptr<expr> expression();

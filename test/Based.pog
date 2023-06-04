@@ -3,7 +3,7 @@ fn main()
     int i;
     for i in 1..69
         print("Based");
-    
+     
     i = 1;
     let j = 420;
     do

@@ -17,6 +17,7 @@ static const char* enum_name[]  = { "PLUS_OP",
                                     "EQUAL",
                                     "ATRIBUTION",
                                     "IDENTIFIER",
+                                    "KEYWORD_MAIN",
                                     "KEYWORD_FN",
                                     "KEYWORD_PRINT",
                                     "KEYWORD_IF",
@@ -28,6 +29,7 @@ static const char* enum_name[]  = { "PLUS_OP",
                                     "KEYWORD_DOTDOT",
                                     "KEYWORD_ARROW",
                                     "KEYWORD_LET",
+                                    "BASIC_TYPE",
                                     "TRUE_LITERAL",
                                     "FALSE_LITERAL",
                                     "CHAR_LITERAL",
@@ -48,7 +50,7 @@ static const char* enum_name[]  = { "PLUS_OP",
                                     "END_OF_FILE"
                                 };
 
-token::token(symbol tag, std::string lexeme) : _tag(tag), _lexeme(lexeme){}
+token::token(symbol tag, std::string lexeme, uint line, uint col) : _tag(tag), _lexeme(lexeme), _line(), _col(col){}
 
 std::ostream& operator<<(std::ostream& stream, token& tok)
 {

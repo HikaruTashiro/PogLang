@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <iostream>
 #include "../include/lexer.hpp"
 #include "../include/utils.hpp"
 
@@ -20,8 +21,15 @@ lexer::lexer(std::string file_name)
               {"print", token_ptr(new token(KEYWORD_PRINT,"print", 0, 0))},
               {"..", token_ptr(new token(KEYWORD_DOTDOT,"..", 0, 0))},
               {"do", token_ptr(new token(KEYWORD_DO,"do", 0, 0))},
+              {"fn", token_ptr(new token(KEYWORD_FN,"fn", 0, 0))},
               {"true", token_ptr(new token(TRUE_LITERAL,"true", 0, 0))},
               {"false", token_ptr(new token(FALSE_LITERAL,"false", 0, 0))},
+              {"int", token_ptr(new token(BASIC_TYPE,"int", 0, 0))},
+              {"uint", token_ptr(new token(BASIC_TYPE,"uint", 0, 0))},
+              {"float", token_ptr(new token(BASIC_TYPE,"float", 0, 0))},
+              {"double", token_ptr(new token(BASIC_TYPE,"double", 0, 0))},
+              {"bool", token_ptr(new token(BASIC_TYPE,"bool", 0, 0))},
+              {"main", token_ptr(new token(KEYWORD_MAIN,"main", 0, 0))},
               {"=", token_ptr(new token(ATRIBUTION,"=", 0, 0))},
               {"*", token_ptr(new token(MUL_OP,"*", 0, 0))},
               {"/", token_ptr(new token(DIV_OP,"/", 0, 0))},
@@ -53,6 +61,8 @@ std::list<token_ptr> lexer::tokenize()
     while (!stream.eof())
     {
         std::getline(stream, line); 
+        if(line.find_first_not_of(" \n\t") == std::string::npos)
+            continue;
         auto start_iter = line.begin();
         while (start_iter != line.end())
             list.push_back(get_token(start_iter));
@@ -73,7 +83,7 @@ token_ptr lexer::get_token(std::string::iterator& iter)
         {
             case '\n':
                 col_count = 1; line_count++; iter++;
-                continue;
+                return nullptr;
             case ' ':
                 col_count++; iter++;
                 continue;
@@ -312,6 +322,7 @@ token_ptr lexer::get_token(std::string::iterator& iter)
         s += std::to_string(line_count);
         s += " col: ";
         s += std::to_string(col_count);
+        std::cout << s << '\n';
         assert_lexical(false, s.c_str());
     }
 }
