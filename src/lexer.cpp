@@ -21,6 +21,7 @@ lexer::lexer(std::string file_name)
               {"print", token_ptr(new token(KEYWORD_PRINT,"print", 0, 0))},
               {"..", token_ptr(new token(KEYWORD_DOTDOT,"..", 0, 0))},
               {"do", token_ptr(new token(KEYWORD_DO,"do", 0, 0))},
+              {"while", token_ptr(new token(KEYWORD_WHILE,"while", 0, 0))},
               {"fn", token_ptr(new token(KEYWORD_FN,"fn", 0, 0))},
               {"true", token_ptr(new token(TRUE_LITERAL,"true", 0, 0))},
               {"false", token_ptr(new token(FALSE_LITERAL,"false", 0, 0))},
@@ -47,7 +48,7 @@ lexer::lexer(std::string file_name)
               {"||", token_ptr(new token(LOGIC_OR,"||", 0, 0))},
               {"!", token_ptr(new token(LOGIC_NOT,"!", 0, 0))},
               {"(", token_ptr(new token(LEFT_PAREN,"(", 0, 0))},
-              {")", token_ptr(new token(RIGH_PAREN,")", 0, 0))},
+              {")", token_ptr(new token(RIGHT_PAREN,")", 0, 0))},
               {"[", token_ptr(new token(LEFT_SQUARE,"[", 0, 0))},
               {"]", token_ptr(new token(RIGHT_SQUARE,"]", 0, 0))},
               {"{", token_ptr(new token(LEFT_CURLY,"{", 0, 0))},
@@ -261,6 +262,7 @@ token_ptr lexer::get_token(std::string::iterator& iter)
             //    iter++;
             //}
 
+            symbol s;
             if(isreal)
             {
                 if(*iter == 'f')
@@ -268,22 +270,38 @@ token_ptr lexer::get_token(std::string::iterator& iter)
                     length++;
                     number_literal += *iter;
                     iter++;
+                    s = FLOAT_LITERAL;
                 }
                 else if(*iter == 'l' && *(iter + 1) == 'f')
                 {
                     length += 2;
                     number_literal += *(iter++);
                     number_literal += *(iter++);
+                    s = DOUBLE_LITERAL;
                 }
                 else
                     assert_lexical(false, "Did not found literal specifier for float or double");
             }
+            else
+            {
+                if(*iter == 'u') 
+                {
+                    length++;     
+                    number_literal += *iter;
+                    iter++;
+                    s = UINT_LITERAL;
+                }
+                else
+                    s = INT_LITERAL;
+            }
             col_count += length;
 
             if(isreal)
-                return token_ptr(new token(FLOAT_LITERAL, number_literal, line_count, col_count));
+            {
+                return token_ptr(new token(s, number_literal, line_count, col_count));
+            }
             else
-                return token_ptr(new token(INT_LITERAL, number_literal, line_count, col_count));
+                return token_ptr(new token(s, number_literal, line_count, col_count));
         }
 
         /*

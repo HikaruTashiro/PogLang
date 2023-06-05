@@ -1,10 +1,12 @@
 #include <iostream>
 #include <list>
 #include <memory>
+#include "grammar/expr_type.hpp"
 #include "lexer.hpp"
 #include "grammar/stmt.hpp"
 #include "grammar/constant.hpp"
 #include "grammar/do.hpp"
+#include "grammar/print.hpp"
 #include "grammar/while.hpp"
 #include "grammar/else.hpp"
 #include "grammar/if.hpp"
@@ -29,14 +31,14 @@ class parser
         token_ptr lookahead;
         token_list tokens;
         token_list::iterator current_tok;
-        std::shared_ptr<symbol_table> scope = nullptr;
+        symbol_table* scope = nullptr;
 
         void match(symbol s);
         void move();
         std::shared_ptr<stmt> assign();
         std::shared_ptr<stmt> block();
         std::shared_ptr<expr> bool_expr();
-        std::shared_ptr<token> type();
+        expr_type type();
         void declarations();
         std::shared_ptr<expr> equality();
         std::shared_ptr<expr> expression();

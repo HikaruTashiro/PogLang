@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <unordered_map>
 #include "token.hpp"
+#pragma once
 
 //#define IDENTIFIER_REGEX "(([a-zA-Z]|_)([a-zA-Z]|_|\\d)*)"
 //#define INTEGER_REGEX "(\\d+)u?"

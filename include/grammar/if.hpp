@@ -14,4 +14,9 @@ class If : public stmt
             statement = s;
             assert_syntax(expression->_type == TYPE_BOOL, "Expression on if is not of the type boolean",0,0);
         }
+
+        void gen() override
+        {
+
+        }
 };
