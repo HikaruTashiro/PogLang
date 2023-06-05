@@ -223,8 +223,8 @@ std::shared_ptr<expr> parser::equality()
 std::shared_ptr<expr> parser::relation()
 {
     std::cout << "relation\n";
-    std::shared_ptr<expr> e = expression();
     symbol s = lookahead->get_symbol();
+    std::shared_ptr<expr> e = expression();
     if(s == LESS || s == LESS_OR_EQUAL || s == GREATER || s == GREATER_OR_EQUAL)
     {
         std::shared_ptr<token> tok = lookahead; move();
