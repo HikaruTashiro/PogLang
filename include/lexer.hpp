@@ -33,5 +33,6 @@ class lexer
     public:
         lexer() = default;
         lexer(std::string file_name);
+        ~lexer();
         std::list<token_ptr> tokenize(); // used in debugging
 };

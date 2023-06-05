@@ -3,10 +3,16 @@ fn main()
     int i;
     int j;
     j = 420;
-    i = 1;
+    i = 69;
 
     do
     {
         print(j - i);
     }while i < 420;
+
+    i = 0;
+    while(i < 42069)
+    {
+        print("SEXO");
+    }
 }

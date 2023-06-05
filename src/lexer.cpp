@@ -8,9 +8,8 @@
 #include "../include/lexer.hpp"
 #include "../include/utils.hpp"
 
-lexer::lexer(std::string file_name)
+lexer::lexer(std::string file_name) : stream(file_name)
 {
-    stream.open(file_name);
     assert(stream.is_open());
     words = { {"if", token_ptr(new token(KEYWORD_IF,"if", 0, 0))},
               {"in", token_ptr(new token(KEYWORD_IN,"in", 0, 0))},
@@ -53,6 +52,10 @@ lexer::lexer(std::string file_name)
               {"]", token_ptr(new token(RIGHT_SQUARE,"]", 0, 0))},
               {"{", token_ptr(new token(LEFT_CURLY,"{", 0, 0))},
               {"}", token_ptr(new token(RIGHT_CURLY,"}", 0, 0))}};
+}
+
+lexer::~lexer()
+{
 }
 
 std::list<token_ptr> lexer::tokenize()

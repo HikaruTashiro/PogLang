@@ -18,8 +18,8 @@ parser::parser(lexer* lex)
 
 parser::~parser()
 {
-    //if(_lex != nullptr)
-    //    delete _lex;
+    if(_lex != nullptr)
+        delete _lex;
 }
 
 void parser::match(symbol s)
@@ -223,8 +223,8 @@ std::shared_ptr<expr> parser::equality()
 std::shared_ptr<expr> parser::relation()
 {
     std::cout << "relation\n";
-    symbol s = lookahead->get_symbol();
     std::shared_ptr<expr> e = expression();
+    symbol s = lookahead->get_symbol();
     if(s == LESS || s == LESS_OR_EQUAL || s == GREATER || s == GREATER_OR_EQUAL)
     {
         std::shared_ptr<token> tok = lookahead; move();
