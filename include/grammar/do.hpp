@@ -1,3 +1,4 @@
+#include <iostream>
 #include <memory>
 #include "expr.hpp"
 #include "stmt.hpp"
@@ -18,6 +19,8 @@ class Do : public stmt
 
         void gen() override
         {
-
+            std::cout << "while\n{\n";
+            statement->gen();
+            std::cout << "}if " << expression->get_string() << " {\nbreak;\n}\n";
         }
 };

@@ -42,7 +42,7 @@ void parser::program()
     match(KEYWORD_FN); match(KEYWORD_MAIN);
     match(LEFT_PAREN); match(RIGHT_PAREN);
     std::shared_ptr<stmt> s = block(); // build syntax tree
-    //s->gen(); // generate target code
+    s->gen(); // generate target code
 }
 
 std::shared_ptr<stmt> parser::block()

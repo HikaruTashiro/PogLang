@@ -1,3 +1,4 @@
+#include <iostream>
 #include <memory>
 #include "id.hpp"
 #include "stmt.hpp"
@@ -16,6 +17,6 @@ class set : public stmt
 
         void gen() override
         {
-
+            std::cout << identifier->get_string() + " = " + expression->get_string();
         }
 };

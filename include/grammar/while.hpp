@@ -2,6 +2,7 @@
 #include "stmt.hpp"
 #include "expr.hpp"
 #include "../utils.hpp"
+#include <iostream>
 #include <memory>
 
 class While : public stmt
@@ -24,6 +25,8 @@ class While : public stmt
 
         void gen() override
         {
-
+            std::cout << "while\n{";
+            statement->gen();
+            std::cout << "}\n";
         }
 };

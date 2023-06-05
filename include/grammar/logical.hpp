@@ -25,6 +25,7 @@ class logical : public expr
 
         std::shared_ptr<expr> gen() override
         {
+
             return std::shared_ptr<expr>();
         }
 };

@@ -79,7 +79,7 @@ class parser
          * expr -> expr + term | expr - term | term
          * term -> term * unary | term / unary | unary
          * unary -> -unary | factor
-         * factor -> ( bool ) | loc | num | real | true | false
+         * factor -> ( bool ) | loc | num | real | true | false | string
          *
          * */
 };
