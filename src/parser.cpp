@@ -346,6 +346,9 @@ void parser::gen_vars()
             case TYPE_DOUBLE:        
                 std::cout << var->get_atribute() << " : f64;\n";
                 break;
+            case TYPE_BOOL:        
+                std::cout << var->get_atribute() << " : bool;\n";
+                break;
         }
         vars.pop();
     }
