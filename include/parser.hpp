@@ -1,6 +1,8 @@
 #include <iostream>
 #include <list>
+#include <queue>
 #include <memory>
+#include <utility>
 #include "grammar/expr_type.hpp"
 #include "lexer.hpp"
 #include "grammar/stmt.hpp"
@@ -27,12 +29,17 @@
 class parser
 {
     private:
-        lexer* _lex;
+        lexer& _lex;
         token_ptr lookahead;
         token_list tokens;
         token_list::iterator current_tok;
         symbol_table* scope = nullptr;
+        std::queue<std::pair<token_ptr, expr_type>> vars;
 
+        /* Generation */
+        void gen_vars();
+
+        /* Productions */
         void match(symbol s);
         void move();
         std::shared_ptr<stmt> assign();
@@ -51,7 +58,7 @@ class parser
         std::shared_ptr<expr> unary();
 
     public:
-        parser(lexer* lex);
+        parser(lexer& lex);
         ~parser();
         void program();
 

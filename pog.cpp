@@ -14,7 +14,8 @@ int main()
     //for(auto var : result_list)
     //    std::cout << *var << ' ';
 
-    parser syntax(new lexer("./test/Based.pog"));
+    lexer lex("./test/Based.pog");
+    parser syntax(lex);
     syntax.program();
 
 

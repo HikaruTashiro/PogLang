@@ -22,10 +22,4 @@ class logical : public expr
                 assert_syntax(s1 == TYPE_BOOL && s2 == TYPE_BOOL, "Operand for logical is not boolean", 0, 0);
             return TYPE_BOOL;
         }
-
-        std::shared_ptr<expr> gen() override
-        {
-
-            return std::shared_ptr<expr>();
-        }
 };

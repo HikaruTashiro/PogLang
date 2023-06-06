@@ -4,13 +4,14 @@
 #include <memory>
 #include <cassert>
 #include <sys/types.h>
+#include <utility>
 
-parser::parser(lexer* lex)
+parser::parser(lexer& lex) : _lex(lex)
 {
-    tokens = lex->tokenize(); 
-    for (auto elem : tokens)
-        std::cout << *elem << ' ';
-    std::cout << '\n';
+    tokens = _lex.tokenize(); 
+    //for (auto elem : tokens)
+    //    std::cout << *elem << ' ';
+    //std::cout << '\n';
 
     current_tok = tokens.begin();
     lookahead = *current_tok;
@@ -18,36 +19,40 @@ parser::parser(lexer* lex)
 
 parser::~parser()
 {
-    if(_lex != nullptr)
-        delete _lex;
+    tokens.clear();
+    lookahead = nullptr;
 }
 
 void parser::match(symbol s)
 {
-    std::cout << "match : " + lookahead->get_atribute() + '\n';
+    //std::cout << "match : " + lookahead->get_atribute() + '\n';
     assert_syntax(lookahead->get_symbol() == s, "Token did not match production",lookahead->_line, lookahead->_col);
     move();
 }
 
 void parser::move()
 {
-    std::cout << "move\n";
+    //std::cout << "move\n";
     current_tok++;
     lookahead = *current_tok;
 }
 
 void parser::program()
 {
-    std::cout << "POG\n";
+    //std::cout << "POG\n";
     match(KEYWORD_FN); match(KEYWORD_MAIN);
     match(LEFT_PAREN); match(RIGHT_PAREN);
     std::shared_ptr<stmt> s = block(); // build syntax tree
+
+    std::cout << "fn main()\n{\n";
+    gen_vars();
     s->gen(); // generate target code
+    std::cout << "}\n";
 }
 
 std::shared_ptr<stmt> parser::block()
 {
-    std::cout << "block\n";
+    //std::cout << "block\n";
     match(LEFT_CURLY);
     symbol_table* save_scope = scope;
     scope = new symbol_table(scope);
@@ -60,12 +65,13 @@ std::shared_ptr<stmt> parser::block()
 
 void parser::declarations()
 {
-    std::cout << "declarations\n";
+    //std::cout << "declarations\n";
     while (lookahead->get_symbol() == BASIC_TYPE)
     {
         expr_type tok_type = type();
         std::shared_ptr<token> tok = lookahead;
         match(IDENTIFIER); match(SEMICOLON);
+        vars.push(std::make_pair(tok, tok_type));
         std::shared_ptr<id> identifier = std::shared_ptr<id>(new id(tok, tok_type));
         scope->put(tok, identifier);
     }
@@ -73,7 +79,7 @@ void parser::declarations()
 
 expr_type parser::type()
 {
-    std::cout << "type\n";
+    //std::cout << "type\n";
     std::shared_ptr<token> tok = lookahead;
     match(BASIC_TYPE);
     if(lookahead->get_symbol() != LEFT_SQUARE)
@@ -87,6 +93,8 @@ expr_type parser::type()
             return TYPE_FLOAT;
         else if(tok->get_atribute() == "double")
             return TYPE_DOUBLE;
+        else if(tok->get_atribute() == "bool")
+            return TYPE_BOOL;
         else
             assert_syntax(false, "Type does not exist", lookahead->_line, lookahead->_col);
     }
@@ -95,7 +103,7 @@ expr_type parser::type()
 
 std::shared_ptr<stmt> parser::statements()
 {
-    std::cout << "statements\n";
+    //std::cout << "statements\n";
     if(lookahead->get_symbol() == RIGHT_CURLY)
         return std::shared_ptr<stmt>(new stmt());
     auto statement1 = statement();
@@ -105,7 +113,7 @@ std::shared_ptr<stmt> parser::statements()
 
 std::shared_ptr<stmt> parser::statement()
 {
-    std::cout << "statement\n";
+    //std::cout << "statement\n";
     std::shared_ptr<expr> e;
     std::shared_ptr<stmt> s, s1, s2;
     std::shared_ptr<stmt> saved_stmt;
@@ -137,7 +145,7 @@ std::shared_ptr<stmt> parser::statement()
         case KEYWORD_WHILE:
             {
                 std::shared_ptr<While> while_node(new While());
-                match(KEYWORD_WHILE); e = bool_expr(); block();
+                match(KEYWORD_WHILE); e = bool_expr(); s1 = block();
                 while_node->initialize(e, s1);
                 return while_node;
             }
@@ -160,7 +168,7 @@ std::shared_ptr<stmt> parser::statement()
 
 std::shared_ptr<stmt> parser::assign()
 {
-    std::cout << "assign\n";
+    //std::cout << "assign\n";
     std::shared_ptr<stmt> statement;
     std::shared_ptr<token> tok = lookahead;
     match(IDENTIFIER);
@@ -184,7 +192,7 @@ std::shared_ptr<stmt> parser::assign()
 
 std::shared_ptr<expr> parser::bool_expr()
 {
-    std::cout << "bool_expr\n";
+    //std::cout << "bool_expr\n";
     std::shared_ptr<expr> e = join();
     while (lookahead->get_symbol() == LOGIC_OR)
     {
@@ -197,7 +205,7 @@ std::shared_ptr<expr> parser::bool_expr()
 
 std::shared_ptr<expr> parser::join()
 {
-    std::cout << "join\n";
+    //std::cout << "join\n";
     std::shared_ptr<expr> e = equality();
     while (lookahead->get_symbol() == LOGIC_AND)
     {
@@ -210,7 +218,7 @@ std::shared_ptr<expr> parser::join()
 
 std::shared_ptr<expr> parser::equality()
 {
-    std::cout << "equality\n";
+    //std::cout << "equality\n";
     std::shared_ptr<expr> e = relation();
     while (lookahead->get_symbol() == EQUAL || lookahead->get_symbol() == DIFFERENT)
     {
@@ -222,7 +230,7 @@ std::shared_ptr<expr> parser::equality()
 
 std::shared_ptr<expr> parser::relation()
 {
-    std::cout << "relation\n";
+    //std::cout << "relation\n";
     std::shared_ptr<expr> e = expression();
     symbol s = lookahead->get_symbol();
     if(s == LESS || s == LESS_OR_EQUAL || s == GREATER || s == GREATER_OR_EQUAL)
@@ -235,7 +243,7 @@ std::shared_ptr<expr> parser::relation()
 
 std::shared_ptr<expr> parser::expression()
 {
-    std::cout << "expression\n";
+    //std::cout << "expression\n";
     std::shared_ptr<expr> e = term();
     while (lookahead->get_symbol() == PLUS_OP || lookahead->get_symbol() == MINUS_OP)
     {
@@ -247,7 +255,7 @@ std::shared_ptr<expr> parser::expression()
 
 std::shared_ptr<expr> parser::term()
 {
-    std::cout << "term\n";
+    //std::cout << "term\n";
     std::shared_ptr<expr> e = unary();
     while (lookahead->get_symbol() == MUL_OP || lookahead->get_symbol() == DIV_OP
             || lookahead->get_symbol() == MODULO)
@@ -260,7 +268,7 @@ std::shared_ptr<expr> parser::term()
 
 std::shared_ptr<expr> parser::unary()
 {
-    std::cout << "unary\n";
+    //std::cout << "unary\n";
     if (lookahead->get_symbol() == MINUS_OP)
     {
         move(); return std::shared_ptr<Unary>(new Unary(lookahead, unary()));
@@ -276,7 +284,7 @@ std::shared_ptr<expr> parser::unary()
 
 std::shared_ptr<expr> parser::factor()
 {
-    std::cout << "factor\n";
+    //std::cout << "factor\n";
     std::shared_ptr<expr> e = nullptr;
     switch ((uint)lookahead->get_symbol())
     {
@@ -314,5 +322,31 @@ std::shared_ptr<expr> parser::factor()
         default:
             assert_syntax(false, "Factor was not identified", lookahead->_line, lookahead->_col);
             return e;
+    }
+}
+
+void parser::gen_vars()
+{
+    while (!vars.empty())
+    {
+        auto var = vars.front().first;
+        auto type = vars.front().second;
+        std::cout << "let mut ";
+        switch ((uint)type)
+        {
+            case TYPE_INT: 
+                std::cout << var->get_atribute() << " : i32;\n";
+                break;
+            case TYPE_UINT:        
+                std::cout << var->get_atribute() << " : u32;\n";
+                break;
+            case TYPE_FLOAT:        
+                std::cout << var->get_atribute() << " : f32;\n";
+                break;
+            case TYPE_DOUBLE:        
+                std::cout << var->get_atribute() << " : f64;\n";
+                break;
+        }
+        vars.pop();
     }
 }

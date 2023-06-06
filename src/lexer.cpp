@@ -10,12 +10,10 @@
 
 lexer::lexer(std::string file_name) : stream(file_name)
 {
-    assert(stream.is_open());
-    words = { {"if", token_ptr(new token(KEYWORD_IF,"if", 0, 0))},
+    assert(stream.is_open()); words = { {"if", token_ptr(new token(KEYWORD_IF,"if", 0, 0))},
               {"in", token_ptr(new token(KEYWORD_IN,"in", 0, 0))},
               {"for", token_ptr(new token(KEYWORD_FOR,"for", 0, 0))},
-              {"let", token_ptr(new token(KEYWORD_LET,"let", 0, 0))},
-              {"else", token_ptr(new token(KEYWORD_ELSE,"else", 0, 0))},
+              {"let", token_ptr(new token(KEYWORD_LET,"let", 0, 0))}, {"else", token_ptr(new token(KEYWORD_ELSE,"else", 0, 0))},
               {"->", token_ptr(new token(KEYWORD_ARROW,"->", 0, 0))},
               {"print", token_ptr(new token(KEYWORD_PRINT,"print", 0, 0))},
               {"..", token_ptr(new token(KEYWORD_DOTDOT,"..", 0, 0))},
@@ -52,10 +50,6 @@ lexer::lexer(std::string file_name) : stream(file_name)
               {"]", token_ptr(new token(RIGHT_SQUARE,"]", 0, 0))},
               {"{", token_ptr(new token(LEFT_CURLY,"{", 0, 0))},
               {"}", token_ptr(new token(RIGHT_CURLY,"}", 0, 0))}};
-}
-
-lexer::~lexer()
-{
 }
 
 std::list<token_ptr> lexer::tokenize()
@@ -204,7 +198,7 @@ token_ptr lexer::get_token(std::string::iterator& iter)
         /*
          * Keywords and Identifiers
          * */
-        while (isalpha(*iter) || *iter == '_')
+        if (isalpha(*iter) || *iter == '_')
         {
             std::string lexeme;
             lexeme.reserve(16);
@@ -213,6 +207,7 @@ token_ptr lexer::get_token(std::string::iterator& iter)
             iter++;
             while (isalpha(*iter) || *iter == '_' || isdigit(*iter))
             {
+                //   (( [a-zA-Z] | _ )( [a-zA-Z] | _ | \\d )* )
                 lenght++;
                 lexeme += *iter;
                 iter++;
@@ -317,6 +312,7 @@ token_ptr lexer::get_token(std::string::iterator& iter)
             literal.reserve(20);
             uint length = 1;
             iter++;
+            literal += "\"";
             while (*iter != '\n' && *iter != '"')
             {
                 length++;
@@ -324,7 +320,8 @@ token_ptr lexer::get_token(std::string::iterator& iter)
                 iter++;
             }
 
-            col_count += length;
+            literal += "\"";
+            col_count += length + 1;
 
             if(*iter == '\n')
               assert_lexical(*iter == '\n', "Unindent String");   //error assert("unindented string")

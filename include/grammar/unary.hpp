@@ -2,6 +2,7 @@
 #include "../utils.hpp"
 #include "op.hpp"
 #include <memory>
+#include <iostream>
 #include <string>
 
 class Unary : public op
@@ -15,9 +16,9 @@ class Unary : public op
                     e->_type == TYPE_DOUBLE,
                     "Type does not have a unary op", token->_line, token->_col);
         }
-        std::shared_ptr<expr> gen() override
+        void gen() override
         {
-            return std::shared_ptr<Unary>(new Unary(_op, expression->reduce()));
+            std::cout << _op->get_atribute() << ' ' << expression->get_string() << ' ';
         }
 
         std::string get_string() override {return _op->get_atribute() + " " + expression->get_string();}

@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 #include "expr.hpp"
 #include "stmt.hpp"
 #include "../utils.hpp"
@@ -18,6 +19,10 @@ class Else : public stmt
 
         void gen() override
         {
-
+            std::cout << "if " << expression->get_string() << "\n{";
+            statement1->gen();
+            std::cout << "\n}\nelse\n{\n";
+            statement2->gen();
+            std::cout << "\n}\n";
         }
 };

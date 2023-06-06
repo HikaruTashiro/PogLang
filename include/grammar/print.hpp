@@ -10,7 +10,8 @@ class print : public stmt
         explicit print(std::shared_ptr<expr> e) : expression(e){}
         void gen() override
         {
-            std::cout << "print!({}, ";
-            std::cout << expression->get_string() << ");\n";
+            std::cout << "print!(\"{}\", ";
+            expression->gen();
+            std::cout << ");\n";
         }
 };

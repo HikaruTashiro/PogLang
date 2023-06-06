@@ -17,6 +17,8 @@ class set : public stmt
 
         void gen() override
         {
-            std::cout << identifier->get_string() + " = " + expression->get_string();
+            std::cout << identifier->get_string() + " = ";
+            expression->gen();
+            std::cout << ";\n";
         }
 };

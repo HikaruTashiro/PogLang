@@ -24,10 +24,10 @@ class symbol_table
             for (auto e = this; e != nullptr; e = e->prev_scope) 
             {
                 auto found = e->scope.find(tok);
-                std::cout << "\tSymbol Table\n";
-                for (auto elem : e->scope)
-                    std::cout << '\t' << elem.first->get_atribute() << '\n';
-                std::cout << '\n';
+                //std::cout << "\tSymbol Table\n";
+                //for (auto elem : e->scope)
+                //    std::cout << '\t' << elem.first->get_atribute() << '\n';
+                //std::cout << '\n';
                 if(found != scope.end())
                     return found->second;
             }

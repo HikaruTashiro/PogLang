@@ -18,5 +18,15 @@ class rel : public logical
             assert_syntax(expr1 == expr2, "Wrong types for relational operation", _op->_line, _op->_col);
             return TYPE_BOOL;
         }
+
+        void gen() override
+        {
+            std::cout << expr1->get_string() << ' ' << _op->get_atribute() << ' ' << expr2->get_string();
+        }
+
+        std::string get_string() override
+        {
+            return expr1->get_string() + ' ' + _op->get_atribute() + ' ' + expr2->get_string();
+        }
 };
 

@@ -13,6 +13,7 @@ class seq : public stmt
 
         void gen() override
         {
-
+            statement1->gen();
+            statement2->gen();
         }
 };

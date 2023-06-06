@@ -25,8 +25,10 @@ class While : public stmt
 
         void gen() override
         {
-            std::cout << "while\n{";
+            std::cout << "while ";
+            expression->gen();
+            std::cout << "{\n";
             statement->gen();
-            std::cout << "}\n";
+            std::cout << "\n}\n";
         }
 };

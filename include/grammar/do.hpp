@@ -19,8 +19,10 @@ class Do : public stmt
 
         void gen() override
         {
-            std::cout << "while\n{\n";
+            std::cout << "loop {\n";
             statement->gen();
-            std::cout << "}if " << expression->get_string() << " {\nbreak;\n}\n";
+            std::cout << "\nif !(";
+            expression->gen();
+            std::cout <<  ") {\nbreak;\n}\n}\n";
         }
 };
