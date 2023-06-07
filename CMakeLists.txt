@@ -11,7 +11,7 @@ add_library(symbol ./src/symbol.cpp)
 add_library(utils ./src/utils.cpp)
 
 add_executable(PogLang pog.cpp )
-target_link_libraries(PogLang lexer token parser symbol)
+target_link_libraries(PogLang lexer token parser symbol utils)
 
 # enable testing functionality
 #enable_testing()

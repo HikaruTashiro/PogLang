@@ -4,10 +4,14 @@ fn main()
     bool b2;
     int i;
     int j;
+    float f;
+    double d;
     j = 420;
     i = 69;
     b1 = true;
     b2 = i < j;
+    f = 3.1415f;
+    d = 2.719lf;
 
     do
     {

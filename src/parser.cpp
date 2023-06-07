@@ -9,9 +9,9 @@
 Parser::Parser(Lexer& lex) : _lex(lex)
 {
     tokens = _lex.tokenize(); 
-    //for (auto elem : tokens)
-    //    std::cout << *elem << ' ';
-    //std::cout << '\n';
+    for (auto elem : tokens)
+        std::cout << *elem << ' ';
+    std::cout << '\n';
 
     current_tok = tokens.begin();
     lookahead = *current_tok;

@@ -10,10 +10,12 @@
 
 Lexer::Lexer(std::string file_name) : stream(file_name)
 {
-    assert(stream.is_open()); words = { {"if", token_ptr(new Token(KEYWORD_IF,"if", 0, 0))},
+    assert(stream.is_open()); 
+    words = { {"if", token_ptr(new Token(KEYWORD_IF,"if", 0, 0))},
               {"in", token_ptr(new Token(KEYWORD_IN,"in", 0, 0))},
               {"for", token_ptr(new Token(KEYWORD_FOR,"for", 0, 0))},
-              {"let", token_ptr(new Token(KEYWORD_LET,"let", 0, 0))}, {"else", token_ptr(new Token(KEYWORD_ELSE,"else", 0, 0))},
+              {"let", token_ptr(new Token(KEYWORD_LET,"let", 0, 0))},
+              {"else", token_ptr(new Token(KEYWORD_ELSE,"else", 0, 0))},
               {"->", token_ptr(new Token(KEYWORD_ARROW,"->", 0, 0))},
               {"print", token_ptr(new Token(KEYWORD_PRINT,"print", 0, 0))},
               {"..", token_ptr(new Token(KEYWORD_DOTDOT,"..", 0, 0))},
@@ -56,140 +58,133 @@ std::list<token_ptr> Lexer::tokenize()
 {
     std::list<token_ptr> list;
     std::string line;
-    while (!stream.eof())
+    token_ptr tok;
+    do
     {
-        std::getline(stream, line); 
-        if(line.find_first_not_of(" \n\t") == std::string::npos)
-            continue;
-        auto start_iter = line.begin();
-        while (start_iter != line.end())
-            list.push_back(get_token(start_iter));
-        col_count = 1;
-        line_count++;
-    }
-    list.push_back(token_ptr(new Token(END_OF_FILE, "", line_count, col_count)));
+        tok = get_token();
+        list.push_back(tok);
+    }while (tok->get_symbol() != END_OF_FILE);
+    stream.close();
     
     return list;
 }
 
-token_ptr Lexer::get_token(std::string::iterator& iter)
+token_ptr Lexer::get_token()
 {
     while (true)
     {
-        /* MISSING ! LOGIC OPERATOR*/
-        switch (*iter)
+        char current = (char)stream.get();
+        char peek = stream.peek();
+
+        if (stream.eof())
+            return token_ptr(new Token(END_OF_FILE, "", line_count, col_count));
+        
+        switch (current)
         {
             case '\n':
-                col_count = 1; line_count++; iter++;
-                return nullptr;
+                col_count = 1; line_count++;
+                continue;
             case ' ':
-                col_count++; iter++;
+                col_count++;
                 continue;
             case '\t':
-                col_count += 8; iter++; //don't really know how tab will be defined
+                col_count += 4; //don't really know how tab will be defined
                 continue;
-                /*
-                 * Punctiation
-                 * */
+            /*
+             * Punctuation
+             * */
             case '&':
-                if(*(iter + 1) == '&')
+                if(peek == '&')
                 {
-                    iter += 2;
-                    col_count += 2;
+                    stream.ignore(); col_count += 2;
                     return words.find("&&")->second;
                 }
-                assert_lexical(*iter == '&' && *(iter + 1) == '&', "Isolated & not allowed on the language");
+                assert_lexical(current == '&' && peek == '&', "Isolated & not allowed on the language");
             case '|':
-                if(*(iter + 1) == '|')
+                if(peek == '|')
                 {
-                    iter += 2;
-                    col_count += 2;
+                    stream.ignore(); col_count += 2;
                     return words.find("||")->second;
                 }
-                assert_lexical(*iter == '|' && *(iter + 1) == '|', "Isolated | not allowed on the language");
+                assert_lexical(current == '|' && peek == '|', "Isolated | not allowed on the language");
             case '*':
-                col_count++; iter++;
+                col_count++;
                 return words.find("*")->second;
             case '!':
-                if(*(iter + 1) == '=')
+                if(peek == '=')
                 {
-                    iter += 2;
-                    col_count += 2;
+                    stream.ignore(); col_count += 2;
                     return words.find("!=")->second;
                 }
-                iter++;
                 col_count++;
                 return words.find("!")->second;
             case '=':
-                if(*(iter + 1) == '=')
+                if(peek == '=')
                 {
-                    col_count++; iter++;
+                    col_count++; stream.ignore();
                     return words.find("==")->second;
                 }
-                col_count++; iter++;
+                col_count++;
                 return words.find("=")->second;
             case '(':
-            	col_count++; iter++;
+            	col_count++;
                 return words.find("(")->second;
             case '-':
-                if(*(iter + 1) == '>')
+                if(peek == '>')
                 {
-                    iter += 2;
-                    col_count += 2;                    
+                    stream.ignore(); col_count += 2;                    
                     return words.find("->")->second;
                 }
-                col_count++; iter++;
+                col_count++;
                 return words.find("-")->second;
             case '+':
-                col_count++; iter++;
+                col_count++;
                 return words.find("+")->second;
             case ')':
-                col_count++; iter++;
+                col_count++;
                 return words.find(")")->second;
             case ';':
-                col_count++; iter++;
+                col_count++;
                 return words.find(";")->second;
             case '<':
-                if (*(iter + 1) == '=')
+                if (peek == '=')
                 {
-                    iter += 2;
-                    col_count += 2;
+                    stream.ignore(); col_count += 2;
                     return words.find("<=")->second;
                 }
-                col_count++; iter++;
+                col_count++;
                 return words.find("<")->second;
             case '>':
-                if (*(iter + 1) == '=')
+                if (peek == '=')
                 {
-                    iter += 2; 
-                    col_count += 2;
+                    stream.ignore(); col_count += 2;
                     return words.find(">=")->second;
                 }
-                col_count++; iter++;
+                col_count++;
                 return words.find(">")->second;
             case '/':
-                col_count++; iter++;
+                col_count++;
                 return words.find("/")->second;
             case '%':
-                col_count++; iter++;
+                col_count++;
                 return words.find("%")->second;
             case '[':
-                col_count++; iter++;
+                col_count++;
                 return words.find("[")->second;
             case ']':
-                col_count++; iter++;
+                col_count++;
                 return words.find("]")->second;
             case '{':
-                col_count++; iter++;
+                col_count++;
                 return words.find("{")->second;
             case '}':
-                col_count++; iter++;
+                col_count++;
                 return words.find("}")->second;
             case '.':
-                if (*(iter + 1) == '.')
+                if (peek == '.')
                 {
                     // Only if followed by a non number
-                    col_count += 2; iter += 2;
+                    stream.ignore(); col_count += 2; 
                     return words.find("..")->second;
                 }
                 break;
@@ -198,19 +193,20 @@ token_ptr Lexer::get_token(std::string::iterator& iter)
         /*
          * Keywords and Identifiers
          * */
-        if (isalpha(*iter) || *iter == '_')
+        if (isalpha(current) || current == '_')
         {
             std::string lexeme;
             lexeme.reserve(16);
-            lexeme += *iter;
+            lexeme += current;
             uint lenght = 1;
-            iter++;
-            while (isalpha(*iter) || *iter == '_' || isdigit(*iter))
+            current = stream.peek();
+            while (isalpha(current) || current == '_' || isdigit(current))
             {
                 //   (( [a-zA-Z] | _ )( [a-zA-Z] | _ | \\d )* )
                 lenght++;
-                lexeme += *iter;
-                iter++;
+                lexeme += current;
+                stream.ignore();
+                current = stream.peek();
             }
 
             col_count += lenght;
@@ -225,56 +221,54 @@ token_ptr Lexer::get_token(std::string::iterator& iter)
         /*
          * Integer or Real Literals
          * */
-        if(isdigit(*iter) || *iter == '.')
+        if(isdigit(current) || current == '.')
         {
             std::string number_literal;
             number_literal.reserve(16);
-            number_literal += *iter;
+            number_literal += current;
             bool isreal = false;
 
             uint length = 1;
-            iter++;
-            while (isdigit(*iter))
+            current = peek;
+            while (isdigit(current))
             {
                 length++;
-                number_literal += *iter;
-                iter++;
+                number_literal += current;
+                stream.ignore();
+                current = stream.peek();
             }
 
-            if(*iter == '.' && *(iter + 1) != '.')
+            if(current == '.')
             {
+                length++;
+                number_literal += current;
                 isreal = true;
-                while (isdigit(*iter))
+                stream.ignore();
+                current = stream.peek();
+
+                while (isdigit(current))
                 {
                     length++;
-                    number_literal += *iter;
-                    iter++;
+                    number_literal += current;
+                    stream.ignore();
+                    current = stream.peek();
                 }
             }
-
-            //while (isdigit(*iter) || (!isreal && *iter == '.'))
-            //{
-            //    length++; 
-            //    isreal = isreal || (*iter == '.');
-            //    number_literal += *iter;
-            //    iter++;
-            //}
 
             symbol s;
             if(isreal)
             {
-                if(*iter == 'f')
+                stream.ignore();
+                peek = stream.peek();
+                if(current == 'f')
                 {
                     length++;
-                    number_literal += *iter;
-                    iter++;
                     s = FLOAT_LITERAL;
                 }
-                else if(*iter == 'l' && *(iter + 1) == 'f')
+                else if(current == 'l' && peek == 'f')
                 {
                     length += 2;
-                    number_literal += *(iter++);
-                    number_literal += *(iter++);
+                    stream.ignore();
                     s = DOUBLE_LITERAL;
                 }
                 else
@@ -282,11 +276,11 @@ token_ptr Lexer::get_token(std::string::iterator& iter)
             }
             else
             {
-                if(*iter == 'u') 
+                if(current == 'u') 
                 {
+                    stream.ignore();
                     length++;     
-                    number_literal += *iter;
-                    iter++;
+                    number_literal += current;
                     s = UINT_LITERAL;
                 }
                 else
@@ -306,36 +300,37 @@ token_ptr Lexer::get_token(std::string::iterator& iter)
          * Literal Strings
          * */
 
-        if(*iter == '"')
+        if(current == '"')
         {
             std::string literal;
             literal.reserve(20);
             uint length = 1;
-            iter++;
-            literal += "\"";
-            while (*iter != '\n' && *iter != '"')
+            literal += current;
+            current = stream.get();
+            while (current != '\n' && current != '"')
             {
                 length++;
-                literal += *iter;
-                iter++;
+                literal += current;
+                current = stream.get();
             }
 
-            literal += "\"";
-            col_count += length + 1;
+            if(current != '"')
+            {
+                if(current == '\n')
+                    assert_lexical(current == '\n', "Unindent String");   //error assert("unindented string")
+                else
+                    assert_lexical(false, "Unreacheble, this should not print");
+            }
 
-            if(*iter == '\n')
-              assert_lexical(*iter == '\n', "Unindent String");   //error assert("unindented string")
-            else if(*iter == '"')
-              iter++;
-            else
-              assert_lexical(false, "Unreacheble, this should not print");
+            col_count += length + 1;
+            literal += current;
             return token_ptr(new Token(STRING_LITERAL, literal, line_count, col_count));
         }
 
 
         // assert wrong character
         std::string s("Unexpected Character: ");
-        s += *iter;
+        s += current;
         s += "  line: ";
         s += std::to_string(line_count);
         s += " col: ";

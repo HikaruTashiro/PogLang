@@ -15,8 +15,7 @@ Expr_type Rel::check(Expr_type expr1, Expr_type expr2)
 
 void Rel::gen()
 {
-    std::cout << ' ';
     expr1->gen();
-    std::cout << _op->get_atribute() << ' ';
+    std::cout << _op->get_atribute();
     expr2->gen();
 }
