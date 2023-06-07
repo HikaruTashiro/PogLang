@@ -4,21 +4,12 @@
 #include "stmt.hpp"
 #include "../utils.hpp"
 
-class set : public stmt
+class Set : public Stmt
 {
     private:
-        std::shared_ptr<id> identifier;
-        std::shared_ptr<expr> expression;
+        std::shared_ptr<Id> identifier;
+        std::shared_ptr<Expr> expression;
     public:
-        set(std::shared_ptr<id> i, std::shared_ptr<expr> e)
-        {
-            identifier = i; expression = e;
-        }
-
-        void gen() override
-        {
-            std::cout << identifier->get_string() + " = ";
-            expression->gen();
-            std::cout << ";\n";
-        }
+        Set(std::shared_ptr<Id>& i, std::shared_ptr<Expr> e);
+        void gen() override;
 };

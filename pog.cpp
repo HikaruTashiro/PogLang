@@ -25,7 +25,7 @@ int main(int argc, char**argv)
         auto pos2 = file_name.find_last_of("/") + 1;
         file_output.resize(pos1 - pos2);
         std::copy(file_name.begin() + pos2, file_name.begin() + pos1, file_output.begin());
-        std::cout << file_output << '\n';
+        //std::cout << file_output << '\n';
         
         if(extension != ".pog")
         {
@@ -33,8 +33,8 @@ int main(int argc, char**argv)
             return 0;
         }
 
-        lexer lex(file_name);
-        parser syntax(lex);
+        Lexer lex(file_name);
+        Parser syntax(lex);
         syntax.program();
     }
     else

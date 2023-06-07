@@ -4,15 +4,12 @@
 #include "expr_type.hpp"
 #pragma once
 
-class expr : public node
+class Expr : public Node
 {
     public:
-        std::shared_ptr<token> _op;
-        expr_type _type;
+        std::shared_ptr<Token> _op;
+        Expr_type _type;
 
-        expr(std::shared_ptr<token> tok, expr_type type) : _op(tok), _type(type)
-        {}
-
-        virtual void gen(){}
-        virtual std::string get_string(){return _op->get_atribute();}
+        Expr(std::shared_ptr<Token>& tok, Expr_type type);
+        virtual void gen() = 0;
 };

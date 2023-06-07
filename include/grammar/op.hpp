@@ -3,8 +3,8 @@
 #include <memory>
 #pragma once
 
-class op : public expr
+class Op : public Expr
 {
     public:
-        op(std::shared_ptr<token> tok, expr_type type) : expr(tok, type) {}
+        Op(std::shared_ptr<Token> tok, Expr_type type);
 };

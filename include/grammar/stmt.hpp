@@ -1,9 +1,9 @@
 #include "node.hpp"
 #pragma once
 
-class stmt : public node
+class Stmt : public Node
 {
     public:
-        stmt() = default;
-        virtual void gen() {};
+        Stmt() = default;
+        void gen() override;
 };

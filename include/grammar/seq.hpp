@@ -1,19 +1,11 @@
 #include "stmt.hpp"
 #include <memory>
 
-class seq : public stmt
+class Seq : public Stmt
 {
-    std::shared_ptr<stmt> statement1;
-    std::shared_ptr<stmt> statement2;
+    std::shared_ptr<Stmt> statement1;
+    std::shared_ptr<Stmt> statement2;
     public:
-        seq(std::shared_ptr<stmt>& s1, std::shared_ptr<stmt>& s2)
-        {
-            statement1 = s1; statement2 = s2;
-        }
-
-        void gen() override
-        {
-            statement1->gen();
-            statement2->gen();
-        }
+        Seq(std::shared_ptr<Stmt>& s1, std::shared_ptr<Stmt>& s2);
+        void gen() override;
 };

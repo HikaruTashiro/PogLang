@@ -9,4 +9,4 @@ typedef enum : uint{
     TYPE_DOUBLE,
     TYPE_STRING,
     TYPE_UNDETERMINED
-} expr_type;
+} Expr_type;

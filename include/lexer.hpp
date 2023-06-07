@@ -16,10 +16,10 @@
 //#define RELAT_REGEX "(<|>|<=|>=|==)"
 //#define LOGIC_REGEX "(&&|\\|\\||!)"
 
-typedef std::shared_ptr<token> token_ptr;
+typedef std::shared_ptr<Token> token_ptr;
 typedef std::list<token_ptr> token_list;
 
-class lexer
+class Lexer
 {
     private:
         std::ifstream stream;
@@ -31,8 +31,8 @@ class lexer
         token_ptr get_token(std::string::iterator& iter);
 
     public:
-        lexer() = default;
-        lexer(std::string file_name);
-        ~lexer() = default;
+        Lexer() = default;
+        Lexer(std::string file_name);
+        ~Lexer() = default;
         std::list<token_ptr> tokenize(); // used in debugging
 };

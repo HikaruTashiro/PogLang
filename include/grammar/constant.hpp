@@ -4,17 +4,9 @@
 #include <iostream>
 #include <string>
 
-class Const : public expr
+class Const : public Expr
 {
     public:
-        Const(std::shared_ptr<token> tok, expr_type s) : expr(tok, s){}
-        std::string get_string() override
-        {
-            return _op->get_atribute();
-        }
-
-        void gen() override
-        {
-            std::cout << _op->get_atribute();
-        }
+        Const(std::shared_ptr<Token> tok, Expr_type s);
+        void gen() override;
 };

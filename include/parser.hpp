@@ -26,15 +26,15 @@
 #include "symbol.hpp"
 #include "token.hpp"
 
-class parser
+class Parser
 {
     private:
-        lexer& _lex;
+        Lexer& _lex;
         token_ptr lookahead;
         token_list tokens;
         token_list::iterator current_tok;
-        symbol_table* scope = nullptr;
-        std::queue<std::pair<token_ptr, expr_type>> vars;
+        Symbol* scope = nullptr;
+        std::queue<std::pair<token_ptr, Expr_type>> vars;
 
         /* Generation */
         void gen_vars();
@@ -42,24 +42,24 @@ class parser
         /* Productions */
         void match(symbol s);
         void move();
-        std::shared_ptr<stmt> assign();
-        std::shared_ptr<stmt> block();
-        std::shared_ptr<expr> bool_expr();
-        expr_type type();
+        std::shared_ptr<Stmt> assign();
+        std::shared_ptr<Stmt> block();
+        std::shared_ptr<Expr> bool_expr();
+        Expr_type type();
         void declarations();
-        std::shared_ptr<expr> equality();
-        std::shared_ptr<expr> expression();
-        std::shared_ptr<expr> factor();
-        std::shared_ptr<expr> join();
-        std::shared_ptr<expr> relation();
-        std::shared_ptr<stmt> statement();
-        std::shared_ptr<stmt> statements();
-        std::shared_ptr<expr> term();
-        std::shared_ptr<expr> unary();
+        std::shared_ptr<Expr> equality();
+        std::shared_ptr<Expr> expression();
+        std::shared_ptr<Expr> factor();
+        std::shared_ptr<Expr> join();
+        std::shared_ptr<Expr> relation();
+        std::shared_ptr<Stmt> statement();
+        std::shared_ptr<Stmt> statements();
+        std::shared_ptr<Expr> term();
+        std::shared_ptr<Expr> unary();
 
     public:
-        parser(lexer& lex);
-        ~parser();
+        Parser(Lexer& lex);
+        ~Parser();
         void program();
 
 

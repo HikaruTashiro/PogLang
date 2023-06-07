@@ -143,19 +143,6 @@ token/fast:
 .PHONY : token/fast
 
 #=============================================================================
-# Target rules for targets named utils
-
-# Build rule for target.
-utils: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 utils
-.PHONY : utils
-
-# fast build rule for target.
-utils/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/build
-.PHONY : utils/fast
-
-#=============================================================================
 # Target rules for targets named parser
 
 # Build rule for target.
@@ -167,6 +154,32 @@ parser: cmake_check_build_system
 parser/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/build
 .PHONY : parser/fast
+
+#=============================================================================
+# Target rules for targets named symbol
+
+# Build rule for target.
+symbol: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 symbol
+.PHONY : symbol
+
+# fast build rule for target.
+symbol/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symbol.dir/build.make CMakeFiles/symbol.dir/build
+.PHONY : symbol/fast
+
+#=============================================================================
+# Target rules for targets named utils
+
+# Build rule for target.
+utils: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 utils
+.PHONY : utils
+
+# fast build rule for target.
+utils/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/build
+.PHONY : utils/fast
 
 #=============================================================================
 # Target rules for targets named PogLang
@@ -204,6 +217,534 @@ pog.s: pog.cpp.s
 pog.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PogLang.dir/build.make CMakeFiles/PogLang.dir/pog.cpp.s
 .PHONY : pog.cpp.s
+
+src/grammar/and.o: src/grammar/and.cpp.o
+.PHONY : src/grammar/and.o
+
+# target to build an object file
+src/grammar/and.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/and.cpp.o
+.PHONY : src/grammar/and.cpp.o
+
+src/grammar/and.i: src/grammar/and.cpp.i
+.PHONY : src/grammar/and.i
+
+# target to preprocess a source file
+src/grammar/and.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/and.cpp.i
+.PHONY : src/grammar/and.cpp.i
+
+src/grammar/and.s: src/grammar/and.cpp.s
+.PHONY : src/grammar/and.s
+
+# target to generate assembly for a file
+src/grammar/and.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/and.cpp.s
+.PHONY : src/grammar/and.cpp.s
+
+src/grammar/arithm.o: src/grammar/arithm.cpp.o
+.PHONY : src/grammar/arithm.o
+
+# target to build an object file
+src/grammar/arithm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/arithm.cpp.o
+.PHONY : src/grammar/arithm.cpp.o
+
+src/grammar/arithm.i: src/grammar/arithm.cpp.i
+.PHONY : src/grammar/arithm.i
+
+# target to preprocess a source file
+src/grammar/arithm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/arithm.cpp.i
+.PHONY : src/grammar/arithm.cpp.i
+
+src/grammar/arithm.s: src/grammar/arithm.cpp.s
+.PHONY : src/grammar/arithm.s
+
+# target to generate assembly for a file
+src/grammar/arithm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/arithm.cpp.s
+.PHONY : src/grammar/arithm.cpp.s
+
+src/grammar/constant.o: src/grammar/constant.cpp.o
+.PHONY : src/grammar/constant.o
+
+# target to build an object file
+src/grammar/constant.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/constant.cpp.o
+.PHONY : src/grammar/constant.cpp.o
+
+src/grammar/constant.i: src/grammar/constant.cpp.i
+.PHONY : src/grammar/constant.i
+
+# target to preprocess a source file
+src/grammar/constant.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/constant.cpp.i
+.PHONY : src/grammar/constant.cpp.i
+
+src/grammar/constant.s: src/grammar/constant.cpp.s
+.PHONY : src/grammar/constant.s
+
+# target to generate assembly for a file
+src/grammar/constant.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/constant.cpp.s
+.PHONY : src/grammar/constant.cpp.s
+
+src/grammar/do.o: src/grammar/do.cpp.o
+.PHONY : src/grammar/do.o
+
+# target to build an object file
+src/grammar/do.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/do.cpp.o
+.PHONY : src/grammar/do.cpp.o
+
+src/grammar/do.i: src/grammar/do.cpp.i
+.PHONY : src/grammar/do.i
+
+# target to preprocess a source file
+src/grammar/do.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/do.cpp.i
+.PHONY : src/grammar/do.cpp.i
+
+src/grammar/do.s: src/grammar/do.cpp.s
+.PHONY : src/grammar/do.s
+
+# target to generate assembly for a file
+src/grammar/do.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/do.cpp.s
+.PHONY : src/grammar/do.cpp.s
+
+src/grammar/else.o: src/grammar/else.cpp.o
+.PHONY : src/grammar/else.o
+
+# target to build an object file
+src/grammar/else.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/else.cpp.o
+.PHONY : src/grammar/else.cpp.o
+
+src/grammar/else.i: src/grammar/else.cpp.i
+.PHONY : src/grammar/else.i
+
+# target to preprocess a source file
+src/grammar/else.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/else.cpp.i
+.PHONY : src/grammar/else.cpp.i
+
+src/grammar/else.s: src/grammar/else.cpp.s
+.PHONY : src/grammar/else.s
+
+# target to generate assembly for a file
+src/grammar/else.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/else.cpp.s
+.PHONY : src/grammar/else.cpp.s
+
+src/grammar/expr.o: src/grammar/expr.cpp.o
+.PHONY : src/grammar/expr.o
+
+# target to build an object file
+src/grammar/expr.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/expr.cpp.o
+.PHONY : src/grammar/expr.cpp.o
+
+src/grammar/expr.i: src/grammar/expr.cpp.i
+.PHONY : src/grammar/expr.i
+
+# target to preprocess a source file
+src/grammar/expr.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/expr.cpp.i
+.PHONY : src/grammar/expr.cpp.i
+
+src/grammar/expr.s: src/grammar/expr.cpp.s
+.PHONY : src/grammar/expr.s
+
+# target to generate assembly for a file
+src/grammar/expr.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/expr.cpp.s
+.PHONY : src/grammar/expr.cpp.s
+
+src/grammar/expr_type.o: src/grammar/expr_type.cpp.o
+.PHONY : src/grammar/expr_type.o
+
+# target to build an object file
+src/grammar/expr_type.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/expr_type.cpp.o
+.PHONY : src/grammar/expr_type.cpp.o
+
+src/grammar/expr_type.i: src/grammar/expr_type.cpp.i
+.PHONY : src/grammar/expr_type.i
+
+# target to preprocess a source file
+src/grammar/expr_type.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/expr_type.cpp.i
+.PHONY : src/grammar/expr_type.cpp.i
+
+src/grammar/expr_type.s: src/grammar/expr_type.cpp.s
+.PHONY : src/grammar/expr_type.s
+
+# target to generate assembly for a file
+src/grammar/expr_type.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/expr_type.cpp.s
+.PHONY : src/grammar/expr_type.cpp.s
+
+src/grammar/id.o: src/grammar/id.cpp.o
+.PHONY : src/grammar/id.o
+
+# target to build an object file
+src/grammar/id.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/id.cpp.o
+.PHONY : src/grammar/id.cpp.o
+
+src/grammar/id.i: src/grammar/id.cpp.i
+.PHONY : src/grammar/id.i
+
+# target to preprocess a source file
+src/grammar/id.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/id.cpp.i
+.PHONY : src/grammar/id.cpp.i
+
+src/grammar/id.s: src/grammar/id.cpp.s
+.PHONY : src/grammar/id.s
+
+# target to generate assembly for a file
+src/grammar/id.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/id.cpp.s
+.PHONY : src/grammar/id.cpp.s
+
+src/grammar/if.o: src/grammar/if.cpp.o
+.PHONY : src/grammar/if.o
+
+# target to build an object file
+src/grammar/if.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/if.cpp.o
+.PHONY : src/grammar/if.cpp.o
+
+src/grammar/if.i: src/grammar/if.cpp.i
+.PHONY : src/grammar/if.i
+
+# target to preprocess a source file
+src/grammar/if.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/if.cpp.i
+.PHONY : src/grammar/if.cpp.i
+
+src/grammar/if.s: src/grammar/if.cpp.s
+.PHONY : src/grammar/if.s
+
+# target to generate assembly for a file
+src/grammar/if.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/if.cpp.s
+.PHONY : src/grammar/if.cpp.s
+
+src/grammar/logical.o: src/grammar/logical.cpp.o
+.PHONY : src/grammar/logical.o
+
+# target to build an object file
+src/grammar/logical.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/logical.cpp.o
+.PHONY : src/grammar/logical.cpp.o
+
+src/grammar/logical.i: src/grammar/logical.cpp.i
+.PHONY : src/grammar/logical.i
+
+# target to preprocess a source file
+src/grammar/logical.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/logical.cpp.i
+.PHONY : src/grammar/logical.cpp.i
+
+src/grammar/logical.s: src/grammar/logical.cpp.s
+.PHONY : src/grammar/logical.s
+
+# target to generate assembly for a file
+src/grammar/logical.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/logical.cpp.s
+.PHONY : src/grammar/logical.cpp.s
+
+src/grammar/node.o: src/grammar/node.cpp.o
+.PHONY : src/grammar/node.o
+
+# target to build an object file
+src/grammar/node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/node.cpp.o
+.PHONY : src/grammar/node.cpp.o
+
+src/grammar/node.i: src/grammar/node.cpp.i
+.PHONY : src/grammar/node.i
+
+# target to preprocess a source file
+src/grammar/node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/node.cpp.i
+.PHONY : src/grammar/node.cpp.i
+
+src/grammar/node.s: src/grammar/node.cpp.s
+.PHONY : src/grammar/node.s
+
+# target to generate assembly for a file
+src/grammar/node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/node.cpp.s
+.PHONY : src/grammar/node.cpp.s
+
+src/grammar/not.o: src/grammar/not.cpp.o
+.PHONY : src/grammar/not.o
+
+# target to build an object file
+src/grammar/not.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/not.cpp.o
+.PHONY : src/grammar/not.cpp.o
+
+src/grammar/not.i: src/grammar/not.cpp.i
+.PHONY : src/grammar/not.i
+
+# target to preprocess a source file
+src/grammar/not.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/not.cpp.i
+.PHONY : src/grammar/not.cpp.i
+
+src/grammar/not.s: src/grammar/not.cpp.s
+.PHONY : src/grammar/not.s
+
+# target to generate assembly for a file
+src/grammar/not.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/not.cpp.s
+.PHONY : src/grammar/not.cpp.s
+
+src/grammar/op.o: src/grammar/op.cpp.o
+.PHONY : src/grammar/op.o
+
+# target to build an object file
+src/grammar/op.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/op.cpp.o
+.PHONY : src/grammar/op.cpp.o
+
+src/grammar/op.i: src/grammar/op.cpp.i
+.PHONY : src/grammar/op.i
+
+# target to preprocess a source file
+src/grammar/op.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/op.cpp.i
+.PHONY : src/grammar/op.cpp.i
+
+src/grammar/op.s: src/grammar/op.cpp.s
+.PHONY : src/grammar/op.s
+
+# target to generate assembly for a file
+src/grammar/op.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/op.cpp.s
+.PHONY : src/grammar/op.cpp.s
+
+src/grammar/or.o: src/grammar/or.cpp.o
+.PHONY : src/grammar/or.o
+
+# target to build an object file
+src/grammar/or.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/or.cpp.o
+.PHONY : src/grammar/or.cpp.o
+
+src/grammar/or.i: src/grammar/or.cpp.i
+.PHONY : src/grammar/or.i
+
+# target to preprocess a source file
+src/grammar/or.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/or.cpp.i
+.PHONY : src/grammar/or.cpp.i
+
+src/grammar/or.s: src/grammar/or.cpp.s
+.PHONY : src/grammar/or.s
+
+# target to generate assembly for a file
+src/grammar/or.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/or.cpp.s
+.PHONY : src/grammar/or.cpp.s
+
+src/grammar/print.o: src/grammar/print.cpp.o
+.PHONY : src/grammar/print.o
+
+# target to build an object file
+src/grammar/print.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/print.cpp.o
+.PHONY : src/grammar/print.cpp.o
+
+src/grammar/print.i: src/grammar/print.cpp.i
+.PHONY : src/grammar/print.i
+
+# target to preprocess a source file
+src/grammar/print.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/print.cpp.i
+.PHONY : src/grammar/print.cpp.i
+
+src/grammar/print.s: src/grammar/print.cpp.s
+.PHONY : src/grammar/print.s
+
+# target to generate assembly for a file
+src/grammar/print.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/print.cpp.s
+.PHONY : src/grammar/print.cpp.s
+
+src/grammar/rel.o: src/grammar/rel.cpp.o
+.PHONY : src/grammar/rel.o
+
+# target to build an object file
+src/grammar/rel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/rel.cpp.o
+.PHONY : src/grammar/rel.cpp.o
+
+src/grammar/rel.i: src/grammar/rel.cpp.i
+.PHONY : src/grammar/rel.i
+
+# target to preprocess a source file
+src/grammar/rel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/rel.cpp.i
+.PHONY : src/grammar/rel.cpp.i
+
+src/grammar/rel.s: src/grammar/rel.cpp.s
+.PHONY : src/grammar/rel.s
+
+# target to generate assembly for a file
+src/grammar/rel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/rel.cpp.s
+.PHONY : src/grammar/rel.cpp.s
+
+src/grammar/seq.o: src/grammar/seq.cpp.o
+.PHONY : src/grammar/seq.o
+
+# target to build an object file
+src/grammar/seq.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/seq.cpp.o
+.PHONY : src/grammar/seq.cpp.o
+
+src/grammar/seq.i: src/grammar/seq.cpp.i
+.PHONY : src/grammar/seq.i
+
+# target to preprocess a source file
+src/grammar/seq.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/seq.cpp.i
+.PHONY : src/grammar/seq.cpp.i
+
+src/grammar/seq.s: src/grammar/seq.cpp.s
+.PHONY : src/grammar/seq.s
+
+# target to generate assembly for a file
+src/grammar/seq.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/seq.cpp.s
+.PHONY : src/grammar/seq.cpp.s
+
+src/grammar/set.o: src/grammar/set.cpp.o
+.PHONY : src/grammar/set.o
+
+# target to build an object file
+src/grammar/set.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/set.cpp.o
+.PHONY : src/grammar/set.cpp.o
+
+src/grammar/set.i: src/grammar/set.cpp.i
+.PHONY : src/grammar/set.i
+
+# target to preprocess a source file
+src/grammar/set.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/set.cpp.i
+.PHONY : src/grammar/set.cpp.i
+
+src/grammar/set.s: src/grammar/set.cpp.s
+.PHONY : src/grammar/set.s
+
+# target to generate assembly for a file
+src/grammar/set.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/set.cpp.s
+.PHONY : src/grammar/set.cpp.s
+
+src/grammar/setelem.o: src/grammar/setelem.cpp.o
+.PHONY : src/grammar/setelem.o
+
+# target to build an object file
+src/grammar/setelem.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/setelem.cpp.o
+.PHONY : src/grammar/setelem.cpp.o
+
+src/grammar/setelem.i: src/grammar/setelem.cpp.i
+.PHONY : src/grammar/setelem.i
+
+# target to preprocess a source file
+src/grammar/setelem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/setelem.cpp.i
+.PHONY : src/grammar/setelem.cpp.i
+
+src/grammar/setelem.s: src/grammar/setelem.cpp.s
+.PHONY : src/grammar/setelem.s
+
+# target to generate assembly for a file
+src/grammar/setelem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/setelem.cpp.s
+.PHONY : src/grammar/setelem.cpp.s
+
+src/grammar/stmt.o: src/grammar/stmt.cpp.o
+.PHONY : src/grammar/stmt.o
+
+# target to build an object file
+src/grammar/stmt.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/stmt.cpp.o
+.PHONY : src/grammar/stmt.cpp.o
+
+src/grammar/stmt.i: src/grammar/stmt.cpp.i
+.PHONY : src/grammar/stmt.i
+
+# target to preprocess a source file
+src/grammar/stmt.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/stmt.cpp.i
+.PHONY : src/grammar/stmt.cpp.i
+
+src/grammar/stmt.s: src/grammar/stmt.cpp.s
+.PHONY : src/grammar/stmt.s
+
+# target to generate assembly for a file
+src/grammar/stmt.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/stmt.cpp.s
+.PHONY : src/grammar/stmt.cpp.s
+
+src/grammar/unary.o: src/grammar/unary.cpp.o
+.PHONY : src/grammar/unary.o
+
+# target to build an object file
+src/grammar/unary.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/unary.cpp.o
+.PHONY : src/grammar/unary.cpp.o
+
+src/grammar/unary.i: src/grammar/unary.cpp.i
+.PHONY : src/grammar/unary.i
+
+# target to preprocess a source file
+src/grammar/unary.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/unary.cpp.i
+.PHONY : src/grammar/unary.cpp.i
+
+src/grammar/unary.s: src/grammar/unary.cpp.s
+.PHONY : src/grammar/unary.s
+
+# target to generate assembly for a file
+src/grammar/unary.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/unary.cpp.s
+.PHONY : src/grammar/unary.cpp.s
+
+src/grammar/while.o: src/grammar/while.cpp.o
+.PHONY : src/grammar/while.o
+
+# target to build an object file
+src/grammar/while.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/while.cpp.o
+.PHONY : src/grammar/while.cpp.o
+
+src/grammar/while.i: src/grammar/while.cpp.i
+.PHONY : src/grammar/while.i
+
+# target to preprocess a source file
+src/grammar/while.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/while.cpp.i
+.PHONY : src/grammar/while.cpp.i
+
+src/grammar/while.s: src/grammar/while.cpp.s
+.PHONY : src/grammar/while.s
+
+# target to generate assembly for a file
+src/grammar/while.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/grammar/while.cpp.s
+.PHONY : src/grammar/while.cpp.s
 
 src/lexer.o: src/lexer.cpp.o
 .PHONY : src/lexer.o
@@ -252,6 +793,30 @@ src/parser.s: src/parser.cpp.s
 src/parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser.dir/build.make CMakeFiles/parser.dir/src/parser.cpp.s
 .PHONY : src/parser.cpp.s
+
+src/symbol.o: src/symbol.cpp.o
+.PHONY : src/symbol.o
+
+# target to build an object file
+src/symbol.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symbol.dir/build.make CMakeFiles/symbol.dir/src/symbol.cpp.o
+.PHONY : src/symbol.cpp.o
+
+src/symbol.i: src/symbol.cpp.i
+.PHONY : src/symbol.i
+
+# target to preprocess a source file
+src/symbol.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symbol.dir/build.make CMakeFiles/symbol.dir/src/symbol.cpp.i
+.PHONY : src/symbol.cpp.i
+
+src/symbol.s: src/symbol.cpp.s
+.PHONY : src/symbol.s
+
+# target to generate assembly for a file
+src/symbol.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symbol.dir/build.make CMakeFiles/symbol.dir/src/symbol.cpp.s
+.PHONY : src/symbol.cpp.s
 
 src/token.o: src/token.cpp.o
 .PHONY : src/token.o
@@ -312,17 +877,87 @@ help:
 	@echo "... PogLang"
 	@echo "... lexer"
 	@echo "... parser"
+	@echo "... symbol"
 	@echo "... token"
 	@echo "... utils"
 	@echo "... pog.o"
 	@echo "... pog.i"
 	@echo "... pog.s"
+	@echo "... src/grammar/and.o"
+	@echo "... src/grammar/and.i"
+	@echo "... src/grammar/and.s"
+	@echo "... src/grammar/arithm.o"
+	@echo "... src/grammar/arithm.i"
+	@echo "... src/grammar/arithm.s"
+	@echo "... src/grammar/constant.o"
+	@echo "... src/grammar/constant.i"
+	@echo "... src/grammar/constant.s"
+	@echo "... src/grammar/do.o"
+	@echo "... src/grammar/do.i"
+	@echo "... src/grammar/do.s"
+	@echo "... src/grammar/else.o"
+	@echo "... src/grammar/else.i"
+	@echo "... src/grammar/else.s"
+	@echo "... src/grammar/expr.o"
+	@echo "... src/grammar/expr.i"
+	@echo "... src/grammar/expr.s"
+	@echo "... src/grammar/expr_type.o"
+	@echo "... src/grammar/expr_type.i"
+	@echo "... src/grammar/expr_type.s"
+	@echo "... src/grammar/id.o"
+	@echo "... src/grammar/id.i"
+	@echo "... src/grammar/id.s"
+	@echo "... src/grammar/if.o"
+	@echo "... src/grammar/if.i"
+	@echo "... src/grammar/if.s"
+	@echo "... src/grammar/logical.o"
+	@echo "... src/grammar/logical.i"
+	@echo "... src/grammar/logical.s"
+	@echo "... src/grammar/node.o"
+	@echo "... src/grammar/node.i"
+	@echo "... src/grammar/node.s"
+	@echo "... src/grammar/not.o"
+	@echo "... src/grammar/not.i"
+	@echo "... src/grammar/not.s"
+	@echo "... src/grammar/op.o"
+	@echo "... src/grammar/op.i"
+	@echo "... src/grammar/op.s"
+	@echo "... src/grammar/or.o"
+	@echo "... src/grammar/or.i"
+	@echo "... src/grammar/or.s"
+	@echo "... src/grammar/print.o"
+	@echo "... src/grammar/print.i"
+	@echo "... src/grammar/print.s"
+	@echo "... src/grammar/rel.o"
+	@echo "... src/grammar/rel.i"
+	@echo "... src/grammar/rel.s"
+	@echo "... src/grammar/seq.o"
+	@echo "... src/grammar/seq.i"
+	@echo "... src/grammar/seq.s"
+	@echo "... src/grammar/set.o"
+	@echo "... src/grammar/set.i"
+	@echo "... src/grammar/set.s"
+	@echo "... src/grammar/setelem.o"
+	@echo "... src/grammar/setelem.i"
+	@echo "... src/grammar/setelem.s"
+	@echo "... src/grammar/stmt.o"
+	@echo "... src/grammar/stmt.i"
+	@echo "... src/grammar/stmt.s"
+	@echo "... src/grammar/unary.o"
+	@echo "... src/grammar/unary.i"
+	@echo "... src/grammar/unary.s"
+	@echo "... src/grammar/while.o"
+	@echo "... src/grammar/while.i"
+	@echo "... src/grammar/while.s"
 	@echo "... src/lexer.o"
 	@echo "... src/lexer.i"
 	@echo "... src/lexer.s"
 	@echo "... src/parser.o"
 	@echo "... src/parser.i"
 	@echo "... src/parser.s"
+	@echo "... src/symbol.o"
+	@echo "... src/symbol.i"
+	@echo "... src/symbol.s"
 	@echo "... src/token.o"
 	@echo "... src/token.i"
 	@echo "... src/token.s"

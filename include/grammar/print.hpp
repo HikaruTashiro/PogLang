@@ -3,15 +3,10 @@
 #include <iostream>
 #include <memory>
 
-class print : public stmt
+class Print : public Stmt
 {
-    std::shared_ptr<expr> expression;
+    std::shared_ptr<Expr> expression;
     public:
-        explicit print(std::shared_ptr<expr> e) : expression(e){}
-        void gen() override
-        {
-            std::cout << "print!(\"{}\", ";
-            expression->gen();
-            std::cout << ");\n";
-        }
+        explicit Print(std::shared_ptr<Expr> e);
+        void gen() override;
 };

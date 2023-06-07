@@ -4,18 +4,9 @@
 #include <memory>
 #pragma once
 
-class id : public expr
+class Id : public Expr
 {
     public:
-        id(std::shared_ptr<token> id, expr_type s/*type*/) : expr(id, s){}
-
-        void gen() override
-        {
-            std::cout << _op->get_atribute();
-        }
-
-        std::string get_string() override
-        {
-            return _op->get_atribute();            
-        }
+        Id(std::shared_ptr<Token>& id, Expr_type s/*type*/);
+        void gen() override;
 };

@@ -55,16 +55,16 @@ typedef enum : uint {
     END_OF_FILE
 } symbol;
 
-class token
+class Token
 {
     private:
         const symbol _tag;
         const std::string _lexeme;
     public:
         const uint _line, _col;
-        ~token() = default;
-        explicit token(symbol tag, std::string lexeme, uint line, uint col);
+        ~Token() = default;
+        explicit Token(symbol tag, std::string lexeme, uint line, uint col);
         inline symbol get_symbol(){return _tag;}
         inline const std::string& get_atribute(){return _lexeme;}
-        friend std::ostream& operator<<(std::ostream& stream, token& tok);
+        friend std::ostream& operator<<(std::ostream& stream, Token& tok);
 };

@@ -4,29 +4,14 @@
 #include <iostream>
 #include <memory>
 
-class rel : public logical
+class Rel : public Logical
 {
     public:
-        rel(std::shared_ptr<token> tok, std::shared_ptr<expr> e1,
-                std::shared_ptr<expr> e2) : logical(tok, e1, e2)
-        {
-            _type = check(expr1->_type, expr2->_type);
-        }
+        /* Expands on the right side, thus no reference there */
+        Rel(std::shared_ptr<Token>& tok, std::shared_ptr<Expr>& e1,
+                std::shared_ptr<Expr> e2);
 
-        expr_type check(expr_type expr1, expr_type expr2) override
-        {
-            assert_syntax(expr1 == expr2, "Wrong types for relational operation", _op->_line, _op->_col);
-            return TYPE_BOOL;
-        }
-
-        void gen() override
-        {
-            std::cout << expr1->get_string() << ' ' << _op->get_atribute() << ' ' << expr2->get_string();
-        }
-
-        std::string get_string() override
-        {
-            return expr1->get_string() + ' ' + _op->get_atribute() + ' ' + expr2->get_string();
-        }
+        Expr_type check(Expr_type expr1, Expr_type expr2) override;
+        void gen() override;
 };
 

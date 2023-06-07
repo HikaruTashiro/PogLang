@@ -3,9 +3,9 @@
 #include <string>
 #pragma once
 
-class node
+class Node
 {
     public:
-        node() = default;
-        void emit(std::string s) {}
+        Node() = default;
+        virtual void gen() = 0;
 };

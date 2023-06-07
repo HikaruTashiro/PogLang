@@ -51,9 +51,9 @@ static const char* enum_name[]  = { "PLUS_OP",
                                     "END_OF_FILE"
                                 };
 
-token::token(symbol tag, std::string lexeme, uint line, uint col) : _tag(tag), _lexeme(lexeme), _line(), _col(col){}
+Token::Token(symbol tag, std::string lexeme, uint line, uint col) : _tag(tag), _lexeme(lexeme), _line(), _col(col){}
 
-std::ostream& operator<<(std::ostream& stream, token& tok)
+std::ostream& operator<<(std::ostream& stream, Token& tok)
 {
     stream << '<' << enum_name[tok._tag] << " , " << tok._lexeme << ">  ";
     return stream;

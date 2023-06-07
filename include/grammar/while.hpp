@@ -5,30 +5,12 @@
 #include <iostream>
 #include <memory>
 
-class While : public stmt
+class While : public Stmt
 {
-    std::shared_ptr<expr> expression;
-    std::shared_ptr<stmt> statement;
+    std::shared_ptr<Expr> expression;
+    std::shared_ptr<Stmt> statement;
     public:
-        While()
-        {
-            expression = nullptr;
-            statement = nullptr;
-        }
-
-        void initialize(std::shared_ptr<expr> e,std::shared_ptr<stmt> st)
-        {
-            expression = e; statement = st;
-            assert_syntax(expression->_type == TYPE_BOOL, "Boolean required for expression",
-                            expression->_op->_line, expression->_op->_col);
-        }
-
-        void gen() override
-        {
-            std::cout << "while ";
-            expression->gen();
-            std::cout << "{\n";
-            statement->gen();
-            std::cout << "\n}\n";
-        }
+        While();
+        void initialize(std::shared_ptr<Expr>& e,std::shared_ptr<Stmt>& st);
+        void gen() override;
 };

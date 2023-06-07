@@ -4,25 +4,13 @@
 #include "stmt.hpp"
 #include "../utils.hpp"
 
-class Else : public stmt
+class Else : public Stmt
 {
-    std::shared_ptr<expr> expression;
-    std::shared_ptr<stmt> statement1;
-    std::shared_ptr<stmt> statement2;
+    std::shared_ptr<Expr> expression;
+    std::shared_ptr<Stmt> statement1;
+    std::shared_ptr<Stmt> statement2;
 
     public:
-        Else(std::shared_ptr<expr> e, std::shared_ptr<stmt> s1, std::shared_ptr<stmt> s2)
-        {
-            expression = e; statement1 = s1; statement2 = s2;
-            assert_syntax(expression->_type == TYPE_BOOL, "Expression on if is not of the type boolean", 0, 0);
-        }
-
-        void gen() override
-        {
-            std::cout << "if " << expression->get_string() << "\n{";
-            statement1->gen();
-            std::cout << "\n}\nelse\n{\n";
-            statement2->gen();
-            std::cout << "\n}\n";
-        }
+        Else(std::shared_ptr<Expr>& e, std::shared_ptr<Stmt>& s1, std::shared_ptr<Stmt>& s2);
+        void gen() override;
 };

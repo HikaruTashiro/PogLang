@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <utility>
 
-parser::parser(lexer& lex) : _lex(lex)
+Parser::Parser(Lexer& lex) : _lex(lex)
 {
     tokens = _lex.tokenize(); 
     //for (auto elem : tokens)
@@ -17,32 +17,32 @@ parser::parser(lexer& lex) : _lex(lex)
     lookahead = *current_tok;
 }
 
-parser::~parser()
+Parser::~Parser()
 {
     tokens.clear();
     lookahead = nullptr;
 }
 
-void parser::match(symbol s)
+void Parser::match(symbol s)
 {
     //std::cout << "match : " + lookahead->get_atribute() + '\n';
     assert_syntax(lookahead->get_symbol() == s, "Token did not match production",lookahead->_line, lookahead->_col);
     move();
 }
 
-void parser::move()
+void Parser::move()
 {
     //std::cout << "move\n";
     current_tok++;
     lookahead = *current_tok;
 }
 
-void parser::program()
+void Parser::program()
 {
     //std::cout << "POG\n";
     match(KEYWORD_FN); match(KEYWORD_MAIN);
     match(LEFT_PAREN); match(RIGHT_PAREN);
-    std::shared_ptr<stmt> s = block(); // build syntax tree
+    std::shared_ptr<Stmt> s = block(); // build syntax tree
 
     std::cout << "fn main()\n{\n";
     gen_vars();
@@ -50,41 +50,41 @@ void parser::program()
     std::cout << "}\n";
 }
 
-std::shared_ptr<stmt> parser::block()
+std::shared_ptr<Stmt> Parser::block()
 {
     //std::cout << "block\n";
     match(LEFT_CURLY);
-    symbol_table* save_scope = scope;
-    scope = new symbol_table(scope);
+    Symbol* save_scope = scope;
+    scope = new Symbol(scope);
     declarations(); 
-    std::shared_ptr<stmt> s = statements();
+    std::shared_ptr<Stmt> s = statements();
     match(RIGHT_CURLY); delete scope;
     scope = save_scope;
     return s;
 }
 
-void parser::declarations()
+void Parser::declarations()
 {
     //std::cout << "declarations\n";
     while (lookahead->get_symbol() == BASIC_TYPE)
     {
-        expr_type tok_type = type();
-        std::shared_ptr<token> tok = lookahead;
+        Expr_type tok_type = type();
+        std::shared_ptr<Token> tok = lookahead;
         match(IDENTIFIER); match(SEMICOLON);
         vars.push(std::make_pair(tok, tok_type));
-        std::shared_ptr<id> identifier = std::shared_ptr<id>(new id(tok, tok_type));
+        std::shared_ptr<Id> identifier = std::shared_ptr<Id>(new Id(tok, tok_type));
         scope->put(tok, identifier);
     }
 }
 
-expr_type parser::type()
+Expr_type Parser::type()
 {
     //std::cout << "type\n";
-    std::shared_ptr<token> tok = lookahead;
+    std::shared_ptr<Token> tok = lookahead;
     match(BASIC_TYPE);
     if(lookahead->get_symbol() != LEFT_SQUARE)
     {
-        expr_type type;
+        Expr_type type;
         if(tok->get_atribute() == "int")
             return TYPE_INT;
         else if(tok->get_atribute() == "uint")
@@ -101,28 +101,28 @@ expr_type parser::type()
     assert_syntax(false, "Arrays not implemented", lookahead->_line, lookahead->_col);
 }
 
-std::shared_ptr<stmt> parser::statements()
+std::shared_ptr<Stmt> Parser::statements()
 {
     //std::cout << "statements\n";
     if(lookahead->get_symbol() == RIGHT_CURLY)
-        return std::shared_ptr<stmt>(new stmt());
+        return std::shared_ptr<Stmt>(new Stmt());
     auto statement1 = statement();
     auto statement2 = statements();
-    return std::shared_ptr<seq>(new seq(statement1, statement2));
+    return std::shared_ptr<Seq>(new Seq(statement1, statement2));
 }
 
-std::shared_ptr<stmt> parser::statement()
+std::shared_ptr<Stmt> Parser::statement()
 {
     //std::cout << "statement\n";
-    std::shared_ptr<expr> e;
-    std::shared_ptr<stmt> s, s1, s2;
-    std::shared_ptr<stmt> saved_stmt;
+    std::shared_ptr<Expr> e;
+    std::shared_ptr<Stmt> s, s1, s2;
+    std::shared_ptr<Stmt> saved_stmt;
 
     switch ((uint)lookahead->get_symbol()) 
     {
         case COMMA:    
             move();
-            return std::shared_ptr<stmt>(nullptr);
+            return std::shared_ptr<Stmt>(nullptr);
         case KEYWORD_IF:
             match(KEYWORD_IF); e = bool_expr(); 
             s1 = block();
@@ -153,7 +153,7 @@ std::shared_ptr<stmt> parser::statement()
             {
                 match(KEYWORD_PRINT); match(LEFT_PAREN);
                 e = bool_expr();
-                std::shared_ptr<print> print_node(new print(e));
+                std::shared_ptr<Print> print_node(new Print(e));
                 match(RIGHT_PAREN); match(SEMICOLON);
                 return print_node;
             }
@@ -166,18 +166,18 @@ std::shared_ptr<stmt> parser::statement()
     }
 }
 
-std::shared_ptr<stmt> parser::assign()
+std::shared_ptr<Stmt> Parser::assign()
 {
     //std::cout << "assign\n";
-    std::shared_ptr<stmt> statement;
-    std::shared_ptr<token> tok = lookahead;
+    std::shared_ptr<Stmt> statement;
+    std::shared_ptr<Token> tok = lookahead;
     match(IDENTIFIER);
-    std::shared_ptr<id> identifier = scope->get(tok);
+    std::shared_ptr<Id> identifier = scope->get(tok);
     assert_syntax(identifier != nullptr, "Variable is undeclared", tok->_line, tok->_col);
     if(lookahead->get_symbol() == ATRIBUTION)    // stmt -> id = expr
     {
         move();
-        statement = std::shared_ptr<set>(new set(identifier,bool_expr())); 
+        statement = std::shared_ptr<Set>(new Set(identifier,bool_expr())); 
     }
     else
     {
@@ -190,83 +190,83 @@ std::shared_ptr<stmt> parser::assign()
     return statement;
 }
 
-std::shared_ptr<expr> parser::bool_expr()
+std::shared_ptr<Expr> Parser::bool_expr()
 {
     //std::cout << "bool_expr\n";
-    std::shared_ptr<expr> e = join();
+    std::shared_ptr<Expr> e = join();
     while (lookahead->get_symbol() == LOGIC_OR)
     {
-        std::shared_ptr<token> tok = lookahead;
+        std::shared_ptr<Token> tok = lookahead;
         move();
         e = std::shared_ptr<Or>(new Or(tok, e, join()));
     }
     return e;
 }
 
-std::shared_ptr<expr> parser::join()
+std::shared_ptr<Expr> Parser::join()
 {
     //std::cout << "join\n";
-    std::shared_ptr<expr> e = equality();
+    std::shared_ptr<Expr> e = equality();
     while (lookahead->get_symbol() == LOGIC_AND)
     {
-        std::shared_ptr<token> tok = lookahead;
+        std::shared_ptr<Token> tok = lookahead;
         move(); 
         e = std::shared_ptr<And>(new And(tok, e, equality()));
     }
     return e;
 }
 
-std::shared_ptr<expr> parser::equality()
+std::shared_ptr<Expr> Parser::equality()
 {
     //std::cout << "equality\n";
-    std::shared_ptr<expr> e = relation();
+    std::shared_ptr<Expr> e = relation();
     while (lookahead->get_symbol() == EQUAL || lookahead->get_symbol() == DIFFERENT)
     {
-        std::shared_ptr<token> tok = lookahead; move();
-        e = std::shared_ptr<rel>(new rel(tok, e, relation()));
+        std::shared_ptr<Token> tok = lookahead; move();
+        e = std::shared_ptr<Rel>(new Rel(tok, e, relation()));
     }
     return e;
 }
 
-std::shared_ptr<expr> parser::relation()
+std::shared_ptr<Expr> Parser::relation()
 {
     //std::cout << "relation\n";
-    std::shared_ptr<expr> e = expression();
+    std::shared_ptr<Expr> e = expression();
     symbol s = lookahead->get_symbol();
     if(s == LESS || s == LESS_OR_EQUAL || s == GREATER || s == GREATER_OR_EQUAL)
     {
-        std::shared_ptr<token> tok = lookahead; move();
-        return std::shared_ptr<rel>(new rel(tok, e, expression()));
+        std::shared_ptr<Token> tok = lookahead; move();
+        return std::shared_ptr<Rel>(new Rel(tok, e, expression()));
     }
     return e;
 }
 
-std::shared_ptr<expr> parser::expression()
+std::shared_ptr<Expr> Parser::expression()
 {
     //std::cout << "expression\n";
-    std::shared_ptr<expr> e = term();
+    std::shared_ptr<Expr> e = term();
     while (lookahead->get_symbol() == PLUS_OP || lookahead->get_symbol() == MINUS_OP)
     {
-        std::shared_ptr<token> tok = lookahead; move();
-        e = std::shared_ptr<arithm>(new arithm(tok, e, term()));
+        std::shared_ptr<Token> tok = lookahead; move();
+        e = std::shared_ptr<Arithm>(new Arithm(tok, e, term()));
     }
     return e;
 }
 
-std::shared_ptr<expr> parser::term()
+std::shared_ptr<Expr> Parser::term()
 {
     //std::cout << "term\n";
-    std::shared_ptr<expr> e = unary();
+    std::shared_ptr<Expr> e = unary();
     while (lookahead->get_symbol() == MUL_OP || lookahead->get_symbol() == DIV_OP
             || lookahead->get_symbol() == MODULO)
     {
-        std::shared_ptr<token> tok = lookahead; move();
-        e = std::shared_ptr<arithm>(new arithm(tok, e, unary()));
+        std::shared_ptr<Token> tok = lookahead; move();
+        e = std::shared_ptr<Arithm>(new Arithm(tok, e, unary()));
     }
     return e;
 }
 
-std::shared_ptr<expr> parser::unary()
+std::shared_ptr<Expr> Parser::unary()
 {
     //std::cout << "unary\n";
     if (lookahead->get_symbol() == MINUS_OP)
@@ -275,17 +275,17 @@ std::shared_ptr<expr> parser::unary()
     }
     else if(lookahead->get_symbol() == LOGIC_NOT)
     {
-        std::shared_ptr<token> tok = lookahead; move();
+        std::shared_ptr<Token> tok = lookahead; move();
         return std::shared_ptr<Not>(new Not(tok, unary()));
     }
     else 
         return factor();
 }
 
-std::shared_ptr<expr> parser::factor()
+std::shared_ptr<Expr> Parser::factor()
 {
     //std::cout << "factor\n";
-    std::shared_ptr<expr> e = nullptr;
+    std::shared_ptr<Expr> e = nullptr;
     switch ((uint)lookahead->get_symbol())
     {
         case LEFT_PAREN:    
@@ -314,7 +314,7 @@ std::shared_ptr<expr> parser::factor()
             return e;
         case IDENTIFIER:
             {
-                std::shared_ptr<id> identifier = scope->get(lookahead);
+                std::shared_ptr<Id> identifier = scope->get(lookahead);
                 assert_syntax(identifier != nullptr, "Variable is undeclared", lookahead->_line, lookahead->_col);
                 move();
                 return identifier;
@@ -325,7 +325,7 @@ std::shared_ptr<expr> parser::factor()
     }
 }
 
-void parser::gen_vars()
+void Parser::gen_vars()
 {
     while (!vars.empty())
     {
