@@ -40,7 +40,7 @@ class Parser
         void gen_vars();
 
         /* Productions */
-        void match(symbol s);
+        void match(Tag s);
         void move();
         std::shared_ptr<Stmt> assign();
         std::shared_ptr<Stmt> block();

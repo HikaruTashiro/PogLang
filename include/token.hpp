@@ -8,7 +8,7 @@ typedef enum : uint {
     MINUS_OP,           
     MUL_OP,             
     DIV_OP,             
-    MODULO,             
+    MODULO_OP,             
     LOGIC_OR,           
     LOGIC_AND,           
     LOGIC_NOT,           
@@ -18,7 +18,7 @@ typedef enum : uint {
     GREATER,
     DIFFERENT,
     EQUAL,
-    ATRIBUTION,
+    ASSIGNMENT,
     IDENTIFIER,
     KEYWORD_MAIN,
     KEYWORD_FN,
@@ -53,18 +53,18 @@ typedef enum : uint {
     SEMICOLON,
     COMMA,
     END_OF_FILE
-} symbol;
+} Tag;
 
 class Token
 {
     private:
-        const symbol _tag;
+        const Tag _tag;
         const std::string _lexeme;
     public:
         const uint _line, _col;
         ~Token() = default;
-        explicit Token(symbol tag, std::string lexeme, uint line, uint col);
-        inline symbol get_symbol(){return _tag;}
+        explicit Token(Tag tag, std::string lexeme, uint line, uint col);
+        inline Tag get_symbol(){return _tag;}
         inline const std::string& get_atribute(){return _lexeme;}
         friend std::ostream& operator<<(std::ostream& stream, Token& tok);
 };

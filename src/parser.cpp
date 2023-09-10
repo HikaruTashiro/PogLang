@@ -9,9 +9,9 @@
 Parser::Parser(Lexer& lex) : _lex(lex)
 {
     tokens = _lex.tokenize(); 
-    for (auto elem : tokens)
-        std::cout << *elem << ' ';
-    std::cout << '\n';
+    //for (auto elem : tokens)
+    //    std::cout << *elem << ' ';
+    //std::cout << '\n';
 
     current_tok = tokens.begin();
     lookahead = *current_tok;
@@ -23,7 +23,7 @@ Parser::~Parser()
     lookahead = nullptr;
 }
 
-void Parser::match(symbol s)
+void Parser::match(Tag s)
 {
     //std::cout << "match : " + lookahead->get_atribute() + '\n';
     assert_syntax(lookahead->get_symbol() == s, "Token did not match production",lookahead->_line, lookahead->_col);
@@ -44,9 +44,10 @@ void Parser::program()
     match(LEFT_PAREN); match(RIGHT_PAREN);
     std::shared_ptr<Stmt> s = block(); // build syntax tree
 
+    /* Generate Target Language */
     std::cout << "fn main()\n{\n";
     gen_vars();
-    s->gen(); // generate target code
+    s->gen();
     std::cout << "}\n";
 }
 
@@ -174,7 +175,7 @@ std::shared_ptr<Stmt> Parser::assign()
     match(IDENTIFIER);
     std::shared_ptr<Id> identifier = scope->get(tok);
     assert_syntax(identifier != nullptr, "Variable is undeclared", tok->_line, tok->_col);
-    if(lookahead->get_symbol() == ATRIBUTION)    // stmt -> id = expr
+    if(lookahead->get_symbol() == ASSIGNMENT)    // stmt -> id = expr
     {
         move();
         statement = std::shared_ptr<Set>(new Set(identifier,bool_expr())); 
@@ -232,7 +233,7 @@ std::shared_ptr<Expr> Parser::relation()
 {
     //std::cout << "relation\n";
     std::shared_ptr<Expr> e = expression();
-    symbol s = lookahead->get_symbol();
+    Tag s = lookahead->get_symbol();
     if(s == LESS || s == LESS_OR_EQUAL || s == GREATER || s == GREATER_OR_EQUAL)
     {
         std::shared_ptr<Token> tok = lookahead; move();
@@ -258,7 +259,7 @@ std::shared_ptr<Expr> Parser::term()
     //std::cout << "term\n";
     std::shared_ptr<Expr> e = unary();
     while (lookahead->get_symbol() == MUL_OP || lookahead->get_symbol() == DIV_OP
-            || lookahead->get_symbol() == MODULO)
+            || lookahead->get_symbol() == MODULO_OP)
     {
         std::shared_ptr<Token> tok = lookahead; move();
         e = std::shared_ptr<Arithm>(new Arithm(tok, e, unary()));

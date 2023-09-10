@@ -30,10 +30,10 @@ Lexer::Lexer(std::string file_name) : stream(file_name)
               {"double", token_ptr(new Token(BASIC_TYPE,"double", 0, 0))},
               {"bool", token_ptr(new Token(BASIC_TYPE,"bool", 0, 0))},
               {"main", token_ptr(new Token(KEYWORD_MAIN,"main", 0, 0))},
-              {"=", token_ptr(new Token(ATRIBUTION,"=", 0, 0))},
+              {"=", token_ptr(new Token(ASSIGNMENT,"=", 0, 0))},
               {"*", token_ptr(new Token(MUL_OP,"*", 0, 0))},
               {"/", token_ptr(new Token(DIV_OP,"/", 0, 0))},
-              {"%", token_ptr(new Token(MODULO,"%", 0, 0))}, 
+              {"%", token_ptr(new Token(MODULO_OP,"%", 0, 0))}, 
               {"+", token_ptr(new Token(PLUS_OP,"+", 0, 0))},
               {"-", token_ptr(new Token(MINUS_OP,"-", 0, 0))},
               {";", token_ptr(new Token(SEMICOLON,";", 0, 0))},
@@ -255,7 +255,7 @@ token_ptr Lexer::get_token()
                 }
             }
 
-            symbol s;
+            Tag s;
             if(isreal)
             {
                 stream.ignore();
@@ -278,8 +278,7 @@ token_ptr Lexer::get_token()
             {
                 if(current == 'u') 
                 {
-                    stream.ignore();
-                    length++;     
+                    stream.ignore(); length++;     
                     number_literal += current;
                     s = UINT_LITERAL;
                 }
